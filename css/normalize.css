@@ -262,6 +262,22 @@ textarea {
   overflow: auto;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
 /**
  * 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10.
