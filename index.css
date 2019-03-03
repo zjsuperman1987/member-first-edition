@@ -1,10 +1,8 @@
 #glob_wrapper_iscroll {
     width: 100%;
-    height: 14.8rem;
+    height: 16.466667rem;
     font-size: 20px;
 }
-
-
 
 /*头部轮播*/
 .swiper-container-header {
@@ -25,4 +23,54 @@
 	height: 1px;
 	border-radius: 0;
 	margin: 0 2px !important;
+}
+
+/*底部栏*/
+.footer {
+	position: fixed;
+	z-index: 1;
+	bottom: 0;
+	height: 1.306667rem;
+	width: 100%;
+	border-top: 1px solid gray;
+	font-size: 0.32rem;
+}
+.hairlines .footer {
+	border-top: .5px solid gray;
+}
+.footer ul {
+	width: 100%;
+	height: 100%;
+}
+.footer ul li {
+	float: left;
+	width: 33.333%;
+	height: 100%;
+	text-align: center;
+}
+.footer ul li>div {
+	height: 0.773333rem;
+	line-height: 0.773333rem;
+
+}
+.footer img {
+	height: 0.586667rem;
+	width: 0.586667rem;
+	vertical-align: middle;
+}
+.footer span {
+	display: inline-block;
+	transform: scale(0.7);
+	-webkit-transform:scale(0.7);
+}
+.footer-middle {
+	position: relative;
+}
+.footer-middle img {
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	top: -0.4rem;
+	left: 50%;
+	margin-left: -0.4rem
 }
