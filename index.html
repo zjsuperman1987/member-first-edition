@@ -5,18 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <!-- 所需脚本 -->
+
     <script type="text/javascript" src='js/flexible.min.js'></script>
-    <script type="text/javascript" src='js/iscroll/iscroll-probe.js'></script>
-    <script type="text/javascript" src='js/iscroll/iscroll-pull-down-refresh.js'></script>
+    <!-- <script type="text/javascript" src='js/iscroll/iscroll-probe.js'></script>
+    <script type="text/javascript" src='js/iscroll/iscroll-pull-down-refresh.js'></script> -->
+    <script type="text/javascript" src='js/oldIscroll/iscroll.js'></script>
+    <script type="text/javascript" src='js/oldIscroll/pullToRefresh.js'></script>
     <script type="text/javascript" src='./node_modules/swiper/dist/js/swiper.min.js'></script>
     <script type="text/javascript" src='node_modules/axios/dist/axios.js'></script>
     <script type="text/javascript" src='node_modules/jquery/dist/jquery.min.js'></script>
     <script type="text/javascript" src='index.js'></script>
+
     <!-- 所需样式 -->
     <link rel="stylesheet" type="text/css" href="./css/normalize.css">
     <link rel="stylesheet" type="text/css" href="./css/common.css">
     <link rel="stylesheet" type="text/css" href="node_modules/swiper/dist/css/swiper.min.css">
-    <link rel="stylesheet" type="text/css" href="js/iscroll/iscroll-pull-down-refresh.css">
+    <!-- <link rel="stylesheet" type="text/css" href="js/iscroll/iscroll-pull-down-refresh.css"> -->
+    <link rel="stylesheet" type="text/css" href="js/oldIscroll/pullToRefresh.css">
     <link rel="stylesheet" type="text/css" href="index.css">
     <title>会员系统</title>
 </head>
@@ -25,35 +30,90 @@
     <div id='glob_wrapper_iscroll'>
         <ul>
             <li>
+                <!-- 头部轮播 -->
                 <div class="swiper-container-header">
                     <div class="swiper-wrapper"></div>
                     <div class="swiper-pagination"></div>
                 </div>
-
+                <!-- 导航轮播 -->
+                <div class="swiper-container-nav">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/active@2x.png'>
+                                <span>活动</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/brand@2x.png'>
+                                <span>品牌</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/wifi@2x.png'>
+                                <span>wifi</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/parkCar@2x.png'>
+                                <span>停车</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/order@2x.png'>
+                                <span>预约</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/integral@2x.png'>
+                                <span>积分</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img' src='./images/icon/lottery@2x.png'>
+                                <span>抽奖</span>
+                            </div>
+                            <div class='swiper-slide-item'>
+                                <img class='swiper-slide-item-img last_special_img' src='./images/icon/game@2x.png'>
+                                <span>游戏</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 福利多多 -->
+                <div class='welfare'>
+                    <div class='welfare_title'><span>福利多多</span></div>
+                    <ul class='welfare_content'>
+                        <li class='welfare_content_item'>
+                            <div class="cro_left_top"></div>
+                            <div class="cro_right_top"></div>
+                            <div class="cro_left_bottom"></div>
+                            <div class="cro_right_bottom"></div>
+                            <div class='welfare_content_item_left'></div>
+                            <div class='welfare_content_item_right'></div>
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>
     <div class='footer'>
-    	<ul>
-    		<li>
-    			<div>
-    				<img src="./images/icon/homeAt@2x.png">
+        <ul>
+            <li>
+                <div>
+                    <img src="./images/icon/homeAt@2x.png">
     			</div>
-    			<span>首页</span>
-    		</li>
-    		<li>
-    			<div class='footer-middle'>
-    				<img src="./images/icon/scan@2x.png">
+                    <span>首页</span>
+            </li>
+            <li>
+                <div class='footer-middle'>
+                    <div>
+                    	<img src="./images/icon/scan@2x.png" style='color: white; z-index: 10'>
+                    </div>
     			</div>
-    			<span>扫码</span>
-    		</li>
-    		<li>
-    			<div>
-    				<img src="./images/icon/mine@2x.png">
+                    <span>扫码</span>
+            </li>
+            <li>
+                <div>
+                    <img src="./images/icon/mine@2x.png">
     			</div>
-    			<span>我的</span>
-    		</li>
-    	</ul>
+                    <span>我的</span>
+            </li>
+        </ul>
     </div>
 </body>
 
