@@ -1,6 +1,10 @@
+body {
+	background: #eee;
+}
 #glob_wrapper_iscroll {
     width: 100%;
-    height: 16.466667rem;
+    /*height: 16.466667rem;*/
+    height: 13.066667rem;
     font-size: 20px;
 }
 
@@ -28,6 +32,7 @@
     width: 100%;
     height: 4.88rem;
     font-size: 14px;
+    background: white;
 }
 
 .swiper-slide-item {
@@ -76,10 +81,6 @@
     position: relative;
     background: gold;
 }
-
-/*.welfare_content_item_left, .welfare_content_item_right {
-    float: left;
-}*/
 
 .cro_left_top,
 .cro_right_top,
@@ -130,13 +131,35 @@
 
 
 .welfare_content_item_left {
+	float: left;
+	position: relative;
     width: 2.773333rem;
     height: 100%;
+    background: white;
+}
+.halfCircle {
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	background: #eb1f78;
+	width: 0; 
+    height: 0; 
+    border:20px solid #eb1f78;
+    border-right: 20px solid #eb1f78; 
+    border-left:  20px solid #eb1f78; 
+    border-radius: 50%;
+    /*transform: rotate(-45deg)*/
+
+
+
 }
 
+
 .welfare_content_item_right {
+	float: left;
     width: 5.893333rem;
     height: 100%;
+    background: #eee;
 }
 
 

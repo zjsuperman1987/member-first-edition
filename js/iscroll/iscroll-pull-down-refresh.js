@@ -150,7 +150,7 @@ var refresher = {
     onRelease: function(scroller, pullDownDIV, pullDownLableDIV, pullDownAction, pullUpDIV, pullUpLableDIV) {
         var y = scroller.y >> 0;
 
-        if (y > 0) {
+        if (y > 0 && scroller.startY >= -pullDownDIV.offsetHeight) {
             scroller.options.minY = 0;
             pullDownDIV.style.lineHeight = '20px';
             pullDownDIV.querySelector('.loader').style.display = 'block';

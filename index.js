@@ -37,8 +37,8 @@ memberHome = (function() {
         },
         init_iscroll: function() {
             refresher.init({
-                // id: '#glob_wrapper_iscroll',
-                id: 'glob_wrapper_iscroll',
+                id: '#glob_wrapper_iscroll',
+                // id: 'glob_wrapper_iscroll',
                 pullDownAction: function() {
                     refresher.spec['#glob_wrapper_iscroll'].refresh();
                 },
