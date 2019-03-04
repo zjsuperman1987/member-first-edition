@@ -116,6 +116,9 @@ var refresher = {
             // 上拉 maxY
             if (y < this.maxScrollY && !pullUpDIV.classList.contains('loading')) {
                 pullUpLableDIV.innerHTML = that.info.pullingUpLable;
+                if (this.options.updateContent) {
+                    pullUpLableDIV.innerHTML = '已经没有更多了...';
+                }
             }
 
         });
@@ -142,7 +145,6 @@ var refresher = {
                 pullUpDIV.style.lineHeight = '40px';
                 pullUpDIV.querySelector('.loader').style.display = 'none';
                 pullUpLableDIV.innerHTML = refresher.info.pullUpLable;
-                // this.maxScrollY = this.wrapperHeight - this.scrollerHeight +pullUpOffset;
             }
         })
 
@@ -164,6 +166,14 @@ var refresher = {
             pullUpDIV.querySelector('.loader').style.display = 'block';
             pullUpLableDIV.innerHTML = refresher.info.loadingLable;
             pullUpDIV.classList.add('loading');
+        }
+        // 没有更多
+        if (scroller.options.updateContent) {
+            pullUpDIV.style.lineHeight = '40px';
+            scroller.maxScrollY = scroller.wrapperHeight - scroller.scrollerHeight + scroller.options.pullUpOffset;
+            pullUpDIV.querySelector('.loader').style.display = 'none';
+            pullUpLableDIV.innerHTML = '已经没有更多了...';
+            pullUpDIV.classList.remove('loading');
         }
     }
 }

@@ -1,6 +1,11 @@
-body {
-	background: #eee;
+* {
+    box-sizing: border-box;
 }
+body {
+    background: #eee;
+    overflow: hidden;
+}
+
 #glob_wrapper_iscroll {
     width: 100%;
     /*height: 16.466667rem;*/
@@ -54,32 +59,32 @@ body {
     line-height: 0.886667rem;
 }
 
-/*福利*/
-.welfare {
-    padding: 0.133333rem;
-    padding-left: 0.666667rem;
-    padding-right: 0.666667rem;
-}
 
+
+/*福利多多*/
 .welfare_title {
-    margin: 0.4rem 0 0.4rem 0;
-}
-
-.welfare_title span {
+    background: white;
+    padding: 0.4rem 0.266667rem;
     font-size: 16px;
-    color: #db1a6d;
+    color: #f21a7b;
 }
 
-.welfare_content {
-    width: 100%;
+.welfare_wrapper_content {
+    padding: 0.133333rem 0.266667rem;
+    background: white;
+    margin-bottom: 0.266667rem;
+    overflow: hidden;
 }
 
-.welfare_content li {
+.welfare_item {
+    position: relative;
     width: 100%;
     height: 2.8rem;
-    border: 1px solid gray;
-    position: relative;
-    background: gold;
+    border: 1px solid #ebebeb;
+}
+
+.hairlines .welfare_item {
+    border: .5px solid #ebebeb;
 }
 
 .cro_left_top,
@@ -94,85 +99,153 @@ body {
     background: #fff;
 }
 
+
 .cro_left_top {
     top: -1px;
     left: -1px;
     border-radius: 0px 0px 10px 0px;
-    border-bottom: 1px solid gray;
-    border-right: 1px solid gray;
+    border-bottom: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+}
+
+.hairlines .cro_left_top {
+    border-bottom: .5px solid #ebebeb;
+    border-right: .5px solid #ebebeb;
 }
 
 .cro_right_top {
     top: -1px;
     right: -1px;
     border-radius: 0px 0px 0px 10px;
-    border-bottom: 1px solid gray;
-    border-left: 1px solid gray;
+    border-bottom: 1px solid #ebebeb;
+    border-left: 1px solid #ebebeb;
 }
-
+.hairlines .cro_right_top {
+    border-bottom: .5px solid #ebebeb;
+    border-left: .5px solid #ebebeb;
+}
 .cro_left_bottom {
     left: -1px;
     bottom: -1px;
     border-radius: 0px 10px 0px 0px;
-    border-top: 1px solid gray;
-    border-right: 1px solid gray;
+    border-top: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
 }
-
+.hairlines .cro_left_bottom {
+    border-top: .5px solid #ebebeb;
+    border-right: .5px solid #ebebeb;
+}
 .cro_right_bottom {
     right: -1px;
     bottom: -1px;
     border-radius: 10px 0px 0px 0px;
-    border-top: 1px solid gray;
-    border-left: 1px solid gray;
+    border-top: 1px solid #ebebeb;
+    border-left: 1px solid #ebebeb;
+}
+.hairlines .cro_right_bottom {
+    border-top: .5px solid #ebebeb;
+    border-left: .5px solid #ebebeb;
 }
 
 
 
 
-
-.welfare_content_item_left {
-	float: left;
-	position: relative;
-    width: 2.773333rem;
+.welfare_item_left {
+    position: relative;
+    float: left;
+    width: 3.226667rem;
     height: 100%;
-    background: white;
-}
-.halfCircle {
-	position: absolute;
-	top: -20px;
-	right: -20px;
-	background: #eb1f78;
-	width: 0; 
-    height: 0; 
-    border:20px solid #eb1f78;
-    border-right: 20px solid #eb1f78; 
-    border-left:  20px solid #eb1f78; 
-    border-radius: 50%;
-    /*transform: rotate(-45deg)*/
-
-
-
+    line-height: 2.773333rem;
+    text-align: center;
+    padding: 0 0.38rem;
 }
 
+.welfare_item_left_icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0.666667rem;
+    height: 0.533333rem;
+    line-height: 0.533333rem;
+    background: #f21a7b;
+    border-bottom-left-radius: 100%;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+}
 
-.welfare_content_item_right {
-	float: left;
-    width: 5.893333rem;
+.welfare_item_left_icon i {
+    display: block;
+    font-style: normal;
+    transform: scale(.8);
+}
+
+.welfare_item_left_font {
+	display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+     vertical-align: middle;/*基线居中对齐*/
+}
+
+.welfare_item_right {
+    float: left;
+    width: 6.213333rem;
     height: 100%;
-    background: #eee;
+    background: #f8f8f8;
+    border-left: 1px solid #ebebeb;
+    padding: 0.266667rem;
+    padding-right: 0.266667rem;
+}
+.welfare_item_right_title {
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 0.133333rem;
+}
+.welfare_item_right_top {
+	font-size: 12px;
+	color: #6c6c6c;
+	margin-bottom: 0.133333rem;
+}
+.welfare_item_right_middle {
+	display: inline-block;
+	font-size: 12px;
+	color: white;;
+	background: #dfc3ad;
+	padding: 0.066667rem;
+	margin-top: -5px;
+	margin-bottom: 0.133333rem;
+	margin-left: -0.426667rem;
+	vertical-align: middle;
+	transform: scale(.8);
+}
+.welfare_item_right_bottom {
+	padding-right: 0.4rem;
+
+}
+.welfare_item_right_bottom .nowPrice {
+	color: #ff1c78;
+	font-size: 14px;
+}
+.welfare_item_right_bottom .oldPrice {
+	color: #cdcdcd;
+	font-size: 12px;
+	text-decoration: line-through;
+}
+.welfare_item_right_bottom .buy {
+	float: right;
+	width: 1.706667rem;
+	height: 0.64rem;
+	line-height: 0.64rem;
+	color: white;
+	font-size: 0.426667rem;
+	background: #f21a7b;
+	border-radius: 24px;
+	text-align: center;
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 /*底部栏*/
 .footer {
     position: fixed;
@@ -222,16 +295,18 @@ body {
 .footer-middle {
     position: relative;
 }
+
 .footer-middle>div {
     position: absolute;
-	top: -0.4rem;
+    top: -0.4rem;
     left: 50%;
     margin-left: -0.4rem;
-	width: 0.8rem;
-	height: 0.8rem;
-	background: white;
-	border-radius: 100%;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: white;
+    border-radius: 100%;
 }
+
 .footer-middle img {
     height: 100%;
     width: 100%;
