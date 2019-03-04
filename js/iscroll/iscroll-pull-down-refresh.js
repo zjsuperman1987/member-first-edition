@@ -5,7 +5,8 @@ var refresher = {
         pullingDownLable: 'Release to refresh...',
         pullUpLable: '',
         pullingUpLable: 'Release to load more...',
-        loadingLable: 'Loading...'
+        loadingLable: 'Loading...',
+        pullingUpEnd: '已经没有更多了...'
     },
     init: function(parameter) {
 
@@ -117,7 +118,7 @@ var refresher = {
             if (y < this.maxScrollY && !pullUpDIV.classList.contains('loading')) {
                 pullUpLableDIV.innerHTML = that.info.pullingUpLable;
                 if (this.options.updateContent) {
-                    pullUpLableDIV.innerHTML = '已经没有更多了...';
+                    pullUpLableDIV.innerHTML = that.info.pullingUpEnd;
                 }
             }
 
@@ -159,21 +160,14 @@ var refresher = {
             pullDownLableDIV.innerHTML = refresher.info.loadingLable;
             pullDownDIV.classList.add('loading');
         }
-
-        if (y < scroller.maxScrollY - pullUpDIV.offsetHeight) {
-            scroller.maxScrollY = scroller.wrapperHeight - scroller.scrollerHeight;
-            pullUpDIV.style.lineHeight = '20px';
-            pullUpDIV.querySelector('.loader').style.display = 'block';
-            pullUpLableDIV.innerHTML = refresher.info.loadingLable;
-            pullUpDIV.classList.add('loading');
-        }
-        // 没有更多
-        if (scroller.options.updateContent) {
-            pullUpDIV.style.lineHeight = '40px';
-            scroller.maxScrollY = scroller.wrapperHeight - scroller.scrollerHeight + scroller.options.pullUpOffset;
-            pullUpDIV.querySelector('.loader').style.display = 'none';
-            pullUpLableDIV.innerHTML = '已经没有更多了...';
-            pullUpDIV.classList.remove('loading');
+        if (!scroller.options.updateContent) {
+            if (y < scroller.maxScrollY - pullUpDIV.offsetHeight) {
+                scroller.maxScrollY = scroller.wrapperHeight - scroller.scrollerHeight;
+                pullUpDIV.style.lineHeight = '20px';
+                pullUpDIV.querySelector('.loader').style.display = 'block';
+                pullUpLableDIV.innerHTML = refresher.info.loadingLable;
+                pullUpDIV.classList.add('loading');
+            }
         }
     }
 }
