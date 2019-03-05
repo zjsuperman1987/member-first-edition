@@ -65,6 +65,7 @@ var refresher = {
         var that = this;
         this.spec[parameter.id] = new IScroll(parameter.id, {
             probeType: 3,
+            tap: true,
             minY: -pullUpOffset,
             pullUpOffset: pullUpOffset,
             onRelease: function() {

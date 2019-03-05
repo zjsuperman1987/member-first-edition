@@ -1,6 +1,7 @@
 window.onload = function() {
     memberHome.initSwiper();
-    memberHome.init_welfare_data(true);
+    memberHome.init_welfare_data();
+    memberHome.initSkip();
 }
 
 
@@ -35,15 +36,17 @@ memberHome = (function() {
                 autoplay: false
             })
         },
-        init_welfare_data: function(init_true) {
+        init_welfare_data: function(state) {
             axios.get('https://www.easy-mock.com/mock/5c77f974ee24c36460daaffb/example/index_data')
                 .then(function(response) {
                     var melfareData = response.data && response.data.melfareData
                     if (melfareData && melfareData.length != 0) {
                         var len = melfareData.length;
-
-
-
+                        if (state === 'pullDown') {
+                            $('.welfare_wrapper').empty();
+                            memberHome.globSpec.welfareCount = 0;
+                            refresher.spec['#glob_wrapper_iscroll'].options.updateContent = false;
+                        };
                         for (var i = 0; i < 3; i++) {
                             if (memberHome.globSpec.welfareCount < len) {
                                 memberHome.globSpec.welfareCount++;
@@ -74,13 +77,17 @@ memberHome = (function() {
                                 refresher.spec['#glob_wrapper_iscroll'].options.updateContent = true;
                             }
                         }
- 
-                        if (init_true) {
+
+                        if (!state) {
                             memberHome.init_iscroll();
-                        } else {
+                        } else if (state === 'pullUp'){
+                            refresher.spec['#glob_wrapper_iscroll'].refresh();
+                        }else {
+                            var wrapper = refresher.spec['#glob_wrapper_iscroll'];
+                            wrapper.scroller = document.querySelector('#glob_wrapper_iscroll').querySelector('.scroller');
                             refresher.spec['#glob_wrapper_iscroll'].refresh();
                         }
- 
+
                     }
                 })
                 .catch(function(error) {
@@ -91,18 +98,49 @@ memberHome = (function() {
         },
         init_iscroll: function() {
 
-
             refresher.init({
                 id: '#glob_wrapper_iscroll',
-                // id: 'glob_wrapper_iscroll',
                 pullDownAction: function() {
-                    refresher.spec['#glob_wrapper_iscroll'].refresh();
+                    memberHome.init_welfare_data("pullDown");
                 },
                 pullUpAction: function() {
-                    memberHome.init_welfare_data();
-                    refresher.spec['#glob_wrapper_iscroll'].refresh();
+                    memberHome.init_welfare_data('pullUp');
                 }
             });
+        },
+        // 页面跳转
+        initSkip: function () {
+            $('.swiper-container-nav .swiper-slide-item').on('tap', function (e) {
+                while(!$(e.target).hasClass("swiper-slide-item")) {
+                    e.target = $(e.target).parent();
+                }
+                var text = $(e.target).find('span').text();
+                switch (text) {
+                    case '活动':
+                        window.location.href = './src/active/active.html'; 
+                        break;
+                    case '品牌': 
+                        break;
+                    case 'wifi': 
+                        break;
+                    case '停车': 
+                        break;
+                    case '预约': 
+                        break;
+                    case '积分': 
+                        break;
+                    case '抽奖': 
+                        break;
+                    case '游戏': 
+                        break;
+                    default:
+                        break;
+
+
+
+
+                }
+            })    
         }
     }
 })();

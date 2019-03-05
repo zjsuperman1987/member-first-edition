@@ -48,9 +48,9 @@ body {
 }
 
 .swiper-slide-item img {
-    height: 0.666667rem;
-    width: 0.666667rem;
-    margin-top: 0.886667rem;
+    height: 1.066667rem;
+    width: 1.066667rem;
+    margin-top: 0.133333rem;
 }
 
 .swiper-slide-item span {
@@ -58,8 +58,6 @@ body {
     height: 0.886667rem;
     line-height: 0.886667rem;
 }
-
-
 
 /*福利多多*/
 .welfare_title {
@@ -146,8 +144,6 @@ body {
     border-top: .5px solid #ebebeb;
     border-left: .5px solid #ebebeb;
 }
-
-
 
 
 .welfare_item_left {
@@ -288,8 +284,6 @@ body {
 
 .footer span {
     display: inline-block;
-    transform: scale(0.7);
-    -webkit-transform: scale(0.7);
 }
 
 .footer-middle {
