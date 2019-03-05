@@ -16,16 +16,24 @@ body {
     width: 100%;
     height: 100%;
     line-height: 0.933333rem;
-    background: gray;
+    background: #f6f6f6;
     text-align: center;
     font-size: 0.266667rem;
     border-radius: 0.506667rem;
+    border: 1px solid #dcdcdc;
+}
+.hairlines .header {
+    border: .5px solid #dcdcdc;
 }
 
 .header svg {
     height: 0.533333rem;
     vertical-align: middle;
     margin-top: -0.133333rem;
+}
+.header span {
+    color: #7d7d7d;
+    font-size: 0.266667rem;
 }
 
 /*滚动部分*/
@@ -35,5 +43,47 @@ body {
 	left: 0;
 	padding: 0.266667rem;
 	width: 100%;
-	height: 15.786667rem;
+	height: 13.04rem;
 }
+
+/*活动卡*/
+.active_wrapper {
+    width: 100%;
+    height: 7.466667rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 0.2rem;
+    margin-bottom: 0.266667rem;
+}
+.harilines .active_wrapper {
+    border: .5px solid #dcdcdc;
+}
+.active_wrapper img {
+    width: 100%;
+    height: 5.0rem;
+}
+
+
+.aw_top, .aw_bottom {
+    height: 0.64rem;
+    margin: 0.333333rem 0.4rem;
+}
+.aw_top {
+    font-size: 0.4rem;
+}
+.aw_top span:nth-child(1) {
+    float: left;
+}
+.aw_top span:nth-child(2) {
+    float: right;
+}
+
+.aw_bottom {
+    font-size: 0.4rem;
+}
+.aw_bottom span:nth-child(1) {
+    float: left;
+}
+.aw_bottom span:nth-child(2) {
+    float: right;
+}
+

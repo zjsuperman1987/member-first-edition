@@ -33,7 +33,8 @@ memberHome = (function() {
                 });
             // 导航轮播
             var navSwiper = new Swiper('.swiper-container-nav', {
-                autoplay: false
+                autoplay: false,
+                touchMoveStopPropagation : false
             })
         },
         init_welfare_data: function(state) {
@@ -81,11 +82,15 @@ memberHome = (function() {
                         if (!state) {
                             memberHome.init_iscroll();
                         } else if (state === 'pullUp'){
-                            refresher.spec['#glob_wrapper_iscroll'].refresh();
+                            setTimeout(function () {
+                                refresher.spec['#glob_wrapper_iscroll'].refresh();
+                            }, 100);
                         }else {
                             var wrapper = refresher.spec['#glob_wrapper_iscroll'];
                             wrapper.scroller = document.querySelector('#glob_wrapper_iscroll').querySelector('.scroller');
-                            refresher.spec['#glob_wrapper_iscroll'].refresh();
+                            setTimeout(function () {
+                                refresher.spec['#glob_wrapper_iscroll'].refresh();
+                            }, 100);
                         }
 
                     }
@@ -107,6 +112,16 @@ memberHome = (function() {
                     memberHome.init_welfare_data('pullUp');
                 }
             });
+
+             refresher.spec['#glob_wrapper_iscroll'].on('beforeScrollStart', function() {
+                memberHome.globSpec.tap = true;             
+                console.log('beforeScrollStart')
+            })
+         
+            refresher.spec['#glob_wrapper_iscroll'].on('scroll', function() {
+                
+                memberHome.globSpec.tap = !(memberHome.globSpec.tap);
+            })
         },
         // 页面跳转
         initSkip: function () {
@@ -135,10 +150,6 @@ memberHome = (function() {
                         break;
                     default:
                         break;
-
-
-
-
                 }
             })    
         }
