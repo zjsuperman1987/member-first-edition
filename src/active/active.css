@@ -1,18 +1,21 @@
+* {
+	box-sizing: border-box;
+}
 body {
 	overflow: hidden;
 }
 .header_wrapper {
+    position: fixed;
+    z-index: 1;
+    padding: 0.266667rem;
 	width: 100%;
-	height: 1.013333rem;
+	height: 1.466667rem;
 	background: white;
 }
 .header {
-    position: fixed;
-    z-index: 1;
-    width: 9.466667rem;
-    height: 1.013333rem;
-    line-height: 1.013333rem;
-    margin: 0.266667rem;
+    width: 100%;
+    height: 100%;
+    line-height: 0.933333rem;
     background: gray;
     text-align: center;
     font-size: 0.266667rem;
@@ -28,8 +31,9 @@ body {
 /*滚动部分*/
 #wrapper {
 	position: absolute;
-	top: 1.546667rem;
-	left: 0.266667rem;
-	width: 9.466667rem;
-	height: 7.346667rem;
+	top: 1.466667rem;
+	left: 0;
+	padding: 0.266667rem;
+	width: 100%;
+	height: 15.786667rem;
 }
