@@ -1,17 +1,25 @@
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
+
+html {
+    height: 100%;
+}
+
 body {
-	overflow: hidden;
+    height: 100%;
+    overflow: hidden;
 }
+
 .header_wrapper {
     position: fixed;
     z-index: 1;
     padding: 0.266667rem;
-	width: 100%;
-	height: 1.466667rem;
-	background: white;
+    width: 100%;
+    height: 1.466667rem;
+    background: white;
 }
+
 .header {
     width: 100%;
     height: 100%;
@@ -22,6 +30,7 @@ body {
     border-radius: 0.506667rem;
     border: 1px solid #dcdcdc;
 }
+
 .hairlines .header {
     border: .5px solid #dcdcdc;
 }
@@ -31,6 +40,7 @@ body {
     vertical-align: middle;
     margin-top: -0.133333rem;
 }
+
 .header span {
     color: #7d7d7d;
     font-size: 0.266667rem;
@@ -38,12 +48,12 @@ body {
 
 /*滚动部分*/
 #wrapper {
-	position: absolute;
-	top: 1.466667rem;
-	left: 0;
-	padding: 0.266667rem;
-	width: 100%;
-	height: 13.04rem;
+    position: absolute;
+    top: 1.466667rem;
+    left: 0;
+    padding: 0.266667rem;
+    width: 100%;
+    height: 13.04rem;
 }
 
 /*活动卡*/
@@ -54,25 +64,31 @@ body {
     border-radius: 0.2rem;
     margin-bottom: 0.266667rem;
 }
+
 .harilines .active_wrapper {
     border: .5px solid #dcdcdc;
 }
+
 .active_wrapper img {
     width: 100%;
     height: 5.0rem;
 }
 
 
-.aw_top, .aw_bottom {
+.aw_top,
+.aw_bottom {
     height: 0.64rem;
     margin: 0.333333rem 0.4rem;
 }
+
 .aw_top {
     font-size: 0.4rem;
 }
+
 .aw_top span:nth-child(1) {
     float: left;
 }
+
 .aw_top span:nth-child(2) {
     float: right;
 }
@@ -80,10 +96,25 @@ body {
 .aw_bottom {
     font-size: 0.4rem;
 }
+
 .aw_bottom span:nth-child(1) {
     float: left;
 }
+
 .aw_bottom span:nth-child(2) {
     float: right;
+}
+
+/*搜索页面*/
+.search_page_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: none;
+    background: white;
+    overflow: hidden;
 }
 

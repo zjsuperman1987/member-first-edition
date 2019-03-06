@@ -34,7 +34,7 @@ memberHome = (function() {
             // 导航轮播
             var navSwiper = new Swiper('.swiper-container-nav', {
                 autoplay: false,
-                touchMoveStopPropagation : false
+                touchMoveStopPropagation: false
             })
         },
         init_welfare_data: function(state) {
@@ -81,16 +81,16 @@ memberHome = (function() {
 
                         if (!state) {
                             memberHome.init_iscroll();
-                        } else if (state === 'pullUp'){
-                            setTimeout(function () {
+                        } else if (state === 'pullUp') {
+                            setTimeout(function() {
                                 refresher.spec['#glob_wrapper_iscroll'].refresh();
-                            }, 100);
-                        }else {
+                            }, 0);
+                        } else {
                             var wrapper = refresher.spec['#glob_wrapper_iscroll'];
                             wrapper.scroller = document.querySelector('#glob_wrapper_iscroll').querySelector('.scroller');
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 refresher.spec['#glob_wrapper_iscroll'].refresh();
-                            }, 100);
+                            }, 0);
                         }
 
                     }
@@ -113,45 +113,45 @@ memberHome = (function() {
                 }
             });
 
-             refresher.spec['#glob_wrapper_iscroll'].on('beforeScrollStart', function() {
-                memberHome.globSpec.tap = true;             
+            refresher.spec['#glob_wrapper_iscroll'].on('beforeScrollStart', function() {
+                memberHome.globSpec.tap = true;
                 console.log('beforeScrollStart')
             })
-         
+
             refresher.spec['#glob_wrapper_iscroll'].on('scroll', function() {
-                
+
                 memberHome.globSpec.tap = !(memberHome.globSpec.tap);
             })
         },
         // 页面跳转
-        initSkip: function () {
-            $('.swiper-container-nav .swiper-slide-item').on('tap', function (e) {
-                while(!$(e.target).hasClass("swiper-slide-item")) {
+        initSkip: function() {
+            $('.swiper-container-nav .swiper-slide-item').on('tap', function(e) {
+                while (!$(e.target).hasClass("swiper-slide-item")) {
                     e.target = $(e.target).parent();
                 }
                 var text = $(e.target).find('span').text();
                 switch (text) {
                     case '活动':
-                        window.location.href = './src/active/active.html'; 
+                        window.location.href = './src/active/active.html';
                         break;
-                    case '品牌': 
+                    case '品牌':
                         break;
-                    case 'wifi': 
+                    case 'wifi':
                         break;
-                    case '停车': 
+                    case '停车':
                         break;
-                    case '预约': 
+                    case '预约':
                         break;
-                    case '积分': 
+                    case '积分':
                         break;
-                    case '抽奖': 
+                    case '抽奖':
                         break;
-                    case '游戏': 
+                    case '游戏':
                         break;
                     default:
                         break;
                 }
-            })    
+            })
         }
     }
 })();

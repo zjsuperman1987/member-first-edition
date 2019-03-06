@@ -1,5 +1,6 @@
 window.onload = function() {
-    active.init_data('init');
+    // active.init_data('init');
+    active.init_tap();
 }
 
 var active = (function() {
@@ -11,6 +12,7 @@ var active = (function() {
 
             axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/active')
                 .then(function(response) {
+                	console.log(response);
                 	// debugger;
                     // 下拉刷新 清空数据
                     if (state === 'pullDown') {
@@ -48,12 +50,12 @@ var active = (function() {
                         	}
                             setTimeout(function () {
 						        refresher.spec['#wrapper'].refresh();
-						    }, 100);
+						    }, 0);
                         } else {
                             refresher.spec['#wrapper'].scroller = document.querySelector('#wrapper').querySelector('.scroller');
                             setTimeout(function () {
 						        refresher.spec['#wrapper'].refresh();
-						    }, 100);
+						    }, 0);
                         }
                     }
                     active.init_tap();
@@ -76,22 +78,27 @@ var active = (function() {
 
             refresher.spec['#wrapper'].on('beforeScrollStart', function() {
 				active.spec.tap = true;            	
-            	console.log('beforeScrollStart')
             })
          
             refresher.spec['#wrapper'].on('scroll', function() {
-            	
             	active.spec.tap = !(active.spec.tap);
             })
 
         },
         init_tap: function () {
+        	// 点击搜索栏
+        	$('.header').off('click').on('click', function () {
+    			window.location.href = './activeSearch/activeSearch.html'
+        	});
+    		//点击活动
         	$('.active_wrapper').off('tap').on('tap', function () {
         		console.log(active.spec.tap,'=================================')
         		if (active.spec.tap) {
-        			
+        				alert(999)
         		}
-        	})
+        	});
+
+
         }
     }
 }());
