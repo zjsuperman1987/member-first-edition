@@ -10,7 +10,6 @@ body {
     height: 100%;
     overflow: hidden;
 }
-
 .header_wrapper {
     position: fixed;
     z-index: 1;
@@ -132,7 +131,6 @@ body {
     bottom: 0;
     width: 100%;
     z-index: 2;
-    background: gold;
     display: none;
 }
 .active_search {
@@ -151,8 +149,9 @@ body {
     text-align: center;
     display: none;
 }
-.as_left i, .as_right i {
-    font-size: 0.533333rem;
+.as_left i {
+    font-size: 0.32rem;
+    vertical-align: middle;
 }
 .as_right {
     float: right;
@@ -270,8 +269,9 @@ body {
 #spScrollerWrapper {
     position: absolute;
     top: 1.333333rem;
-    bottom: 0;
+    bottom: 0.533333rem;
     width: 100%;
+    padding: 0.266667rem;
     background: white;
     display: none;
 }
