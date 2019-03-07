@@ -12,7 +12,7 @@
     <script type="text/javascript" src='../../node_modules/jquery/dist/jquery.min.js'></script>
     <script type="text/javascript" src='active.js'></script>
     <!-- 所需样式 -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="../../css/normalize.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
     <link rel="stylesheet" type="text/css" href="../../js/iscroll/iscroll-pull-down-refresh.css">
@@ -21,41 +21,81 @@
 </head>
 
 <body>
-    <div class='header_wrapper'>
-        <div class='header'>
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-                <path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path>
-            </svg>
-            <span>搜索活动</span>
+    <div class='bottom_page'>
+        <div class='header_wrapper'>
+            <div class='header'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+                    <path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path>
+                </svg>
+                <span>搜索活动</span>
+            </div>
+        </div>
+        <!-- 滚动部分 -->
+        <div id='wrapper'>
+            <ul>
+                <li>
+                </li>
+            </ul>
         </div>
     </div>
-    <!-- 滚动部分 -->
-    <div id='wrapper'>
-        <ul>
-            <li>
-            </li>
-        </ul>
-    </div>
     <!-- 搜索页面 -->
-    <div class='search_page_wrapper'>
-        <!-- 搜索头部 -->
-        <div class='spw_header_wrapper'>
-            <div class='spw_header_wrapper_left'>
-                <i class="fas fa-long-arrow-alt-left"></i>
+    <div class='active_search_page'>
+        <div class='active_search'>
+            <div class='as_left'>
+                <i class="fas fa-chevron-left"></i>
             </div>
-            <div class='spw_header_wrapper_right'>
-                <i class="far fa-trash-alt"></i>
+            <div class='as_right'>
+                搜索
             </div>
-            <div class='spw_header_wrapper_middle'>
-                <div class='spw_header_wrapper_middle_content'>
-                    <div class='svg_wrapper'>
+            <div class='as_middle'>
+                <div class=' as_middle_content'>
+                    <div class='as_middle_content_left'>
                         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
                             <path fill-opacity=".38" d="M14.778 13.732a.739.739 0 1 1-1.056 1.036l-2.515-2.565a.864.864 0 0 1-.01-1.206 4.894 4.894 0 0 0 1.357-3.651c-.126-2.492-2.156-4.52-4.648-4.647a4.911 4.911 0 0 0-5.16 5.163c.126 2.475 2.13 4.496 4.605 4.642.451.026.896-.008 1.326-.1a.739.739 0 0 1 .308 1.446c-.56.12-1.137.164-1.72.13-3.227-.19-5.83-2.815-5.995-6.042a6.39 6.39 0 0 1 6.71-6.715c3.25.165 5.884 2.8 6.05 6.048a6.37 6.37 0 0 1-1.374 4.3l2.12 2.161z"></path>
                         </svg>
                     </div>
-                    <div class='input_wrapper'>
-                        <input type="text" name="searchInput" placeholder="搜索活动" autofocus="autofocus">
+                    <div class='as_middle_content_right'>
+                        <input type="text" name="search_input" placeholder="搜索活动" autofocus="autofocus">
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class='container'>
+            <!-- 历史搜索 -->
+            <div class='history_search'>
+                <div class='history_top'>
+                    <span>历史搜索</span>
+                    <span class='history_top_right'><i class="fas fa-trash-alt"></i></span>
+                </div>
+                <div class='history_content'>
+                    <span>UME</span>
+                    <span>1314</span>
+                    <span>Adidis</span>
+                    <span>签到</span>
+                    <span>活动</span>
+                    <span>礼</span>
+                    <span>Adidis</span>
+                    <span>签到</span>
+                    <span>活动</span>
+                    <span>礼品</span>
+                </div>
+            </div>
+            <!-- 热门搜索 -->
+            <div class='hot_search'>
+                <div class='hot_search_top'>
+                    <span>热门搜索</span>
+                </div>
+                <div class='hot_search_content'>
+                    <span>礼</span>
+                    <span>Adidis</span>
+                    <span>签到</span>
+                    <span>活动</span>
+                    <span>礼品</span>
+                    <span>UME</span>
+                    <span>1314</span>
+                    <span>Adidis</span>
+                    <span>签到</span>
+                    <span>活动</span>
                 </div>
             </div>
         </div>
