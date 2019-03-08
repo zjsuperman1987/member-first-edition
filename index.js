@@ -1,8 +1,9 @@
 window.onload = function() {
+    footer.init();
     memberHome.initSwiper();
     memberHome.init_welfare_data();
     memberHome.initSkip();
-}
+};
 
 
 memberHome = (function() {
@@ -16,13 +17,15 @@ memberHome = (function() {
                 autoplay: true,
                 loop: true,
                 pagination: {
-                    el: '.swiper-pagination',
+                    el: '.swiper-pagination'
                 }
-            })
+            });
+
             axios.get('https://www.easy-mock.com/mock/5c77f974ee24c36460daaffb/example/index_data')
                 .then(function(response) {
+                    console.log(response);
                     if (response.data.headerCarouse && response.data.headerCarouse.length != 0) {
-                        len = response.data.headerCarouse.length
+                        len = response.data.headerCarouse.length;
                         for (var i = 0; i < len; i++) {
                             headerSwiper.appendSlide('<div class="swiper-slide"><img src="' + response.data.headerCarouse[i].imgUrl + '"></div>');
                         }
@@ -119,7 +122,6 @@ memberHome = (function() {
             })
 
             refresher.spec['#glob_wrapper_iscroll'].on('scroll', function() {
-
                 memberHome.globSpec.tap = !(memberHome.globSpec.tap);
             })
         },
@@ -151,7 +153,7 @@ memberHome = (function() {
                     default:
                         break;
                 }
-            })
+            });
         }
     }
 })();
