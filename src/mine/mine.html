@@ -5,29 +5,102 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <!-- 所需脚本 -->
-    <script type="text/javascript" src='../../node_modules/jquery/dist/jquery.min.js'></script>
     <script type="text/javascript" src='../../js/flexible.min.js'></script>
-    <script type="text/javascript" src='../../js/common.js'></script>
+    <script type="text/javascript" src='../../js/iscroll/iscroll-probe.js'></script>
+    <script type="text/javascript" src='../../js/iscroll/iscroll-pull-down-refresh.js'></script>
+    <script type="text/javascript" src='../../node_modules/swiper/dist/js/swiper.min.js'></script>
+    <script type="text/javascript" src='../../node_modules/axios/dist/axios.js'></script>
+    <script type="text/javascript" src='../../node_modules/jquery/dist/jquery.min.js'></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src='mine.js'></script>
     <!-- 所需样式 -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="../../css/normalize.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../node_modules/swiper/dist/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../../js/iscroll/iscroll-pull-down-refresh.css">
     <link rel="stylesheet" type="text/css" href="mine.css">
     <title>会员系统</title>
 </head>
 
 <body>
-    <!-- content -->
-	<div class='wrapper'>
-		<div class='header'></div>
-	</div>
+    <div class='header'>
+        <div class='header_theme'>
+            <img src="../../images/header_icon_03.png">
+            <div class='member_name'>赵鉴</div>
+            <div class='member_info'>
+                <span>普通会员</span>a
+                <a href="#">0</a> <span>积分</span>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class='header_middle'>
+            <div class='header_middle_item'>
+                <span>0</span>
+                <div>代领取</div>
+            </div>
+            <div class='header_middle_item'>
+                <span>0</span>
+                <div>已领取</div>
+            </div>
+            <div class='header_middle_item'>
+                <span>0</span>
+                <div>代使用</div>
+            </div>
+        </div>
+    </div>
+    <!-- 内容 -->
+    <div class='container_wrapper'>
+        <div class='container'>
+            <div class='container_item'>
+                <img src="../../images/icon/for_record.png">
+                <span>兑换记录</span>
+            </div>
+            <div class='container_item'>
+                <img src="../../images/icon/sale_record.png">
+                <span>消费记录</span>
+            </div>
+          <div class='container_item'>
+                <img src="../../images/icon/sign_record.png">
+                <span>签到记录</span>
+            </div>
+        </div>
+        <div class='container'>
+           <div class='container_item'>
+                <img src="../../images/icon/my_card.png">
+                <span>我的卡券</span>
+            </div>
+            <div class='container_item'>
+                <img src="../../images/icon/my_gift.png">
+                <span>我的礼品</span>
+            </div>
+            <div class='container_item'>
+                <img src="../../images/icon/member_welfare.png">
+                <span>会员福利</span>
+            </div>
+        </div>
+        <div class='container'>
+             <div class='container_item'>
+                <img src="../../images/icon/complaint_suggest.png">
+                <span>投诉建议</span>
+            </div>
+            <div class='container_item'>
+                <img src="../../images/icon/recommend_lottery.png">
+                <span>推荐有奖</span>
+            </div>
+            <div class='container_item'>
+                <img src="../../images/icon/favorite_merchant.png">
+                <span>关注商家</span>
+            </div>
+        </div>
+    </div>
     <!-- 底部 -->
     <div class='footer'>
         <ul>
             <li>
                 <div>
-                    <img src="../../images/icon/home@2x.png">
-    			</div>
+                    <img src="../../images/icon/homeAt@2x.png">
+                </div>
                     <span>首页</span>
             </li>
             <li>
@@ -40,13 +113,12 @@
             </li>
             <li>
                 <div>
-                    <img src="../../images/icon/mineAt@2x.png">
-    			</div>
+                    <img src="../../images/icon/mine@2x.png">
+                </div>
                     <span>我的</span>
             </li>
         </ul>
     </div>
-    <script type="text/javascript" src='../../js/common.js'></script>
 </body>
 
 </html>

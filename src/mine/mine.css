@@ -1,13 +1,93 @@
-.wrapper {
-	width: 100%;
-	height: 14.773333rem;
-	position: relative;
+body {
+    background: #efefef;
+}
+/*头部*/
+.header {
+    width: 100%;
+    height: 5.946667rem;
+    background: url('../../images/background_header_02.png') no-repeat;
+    background-size: 100% 100%;
+}
+.header_theme {
+    position: relative;
+    width: 100%;
+    height: 3.493333rem;
+    font-size: 0.373333rem;
+    font-weight: bold;
+    overflow: hidden;
+}
+.header_theme img{
+    float: left;
+    width: 2.053333rem;
+    height: 2.053333rem;
+    border-radius: 100%;
+    margin-top: 0.72rem;
+    margin-left: 0.453333rem;
+}
+.member_name {
+    margin-left: 2.933333rem;
+    margin-top: 1.333333rem;
+    margin-bottom: 0.266667rem;
+}
+.member_info {
+    margin-left: 2.933333rem;
+    font-size: 0.32rem;
+}
+.member_info a {
+    margin-left: 0.266667rem;
+    color: red;
+}
+.fas {
+    position: absolute;
+    right: 0.506667rem;
+    top: 50%;
+    margin-top: -0.08rem;
+    color: white;
+    font-size: 0.533333rem;
 }
 
-.header{
-	width: 100%;
-	height: 5.973333rem;
-	background: gold;
+.header_middle {
+    display: table;
+    width: 100%;
+    height: 1.226667rem;
+}
+.header_middle_item {
+    display: table-cell;
+    width: 33.333%;
+    height: 2.453333rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.32rem;
+}
+.header_middle_item>div{
+    margin-top: 0.266667rem;
 }
 
-
+/*内容*/
+.container_wrapper {
+    width: 100%;
+    height: 6.8rem;
+    margin-top: 0.293333rem;
+    padding: 0.266667rem 0;
+    background: white;
+}
+.container {
+    display: table;
+    width: 100%;
+    height: 33.333%;
+}
+.container_item {
+    display: table-cell;
+    width: 33.333%;
+    height: 33.333%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.32rem;
+}
+.container_item img {
+    height: 0.853333rem;
+}
+.container_item span {
+    margin-top: 0.266667rem;
+    display: block;
+}

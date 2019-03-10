@@ -1,0 +1,30 @@
+#wrapper {
+	width: 100%;
+	/*height: 14.773333rem;*/
+	height: 554px;
+	padding: 0.266667rem;
+}
+
+.item {
+	display: table;
+	width: 100%;
+	font-size: 0.32rem;
+	border: 1px solid #cccccc;
+	border-radius: 0.133333rem;
+	padding: 0.266667rem;
+}
+.hariline .item {
+	border: .5px solid #cccccc;
+}
+
+.item_left, .item_right {
+	display: table-cell;
+	text-align: left;
+}
+.item_right {
+	text-align: right;
+}
+
+.scroller {
+	height: 4.4rem;
+}
