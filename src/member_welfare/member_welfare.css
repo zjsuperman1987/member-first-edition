@@ -12,6 +12,10 @@
 	border: 1px solid #cccccc;
 	border-radius: 0.133333rem;
 	padding: 0.266667rem;
+	margin-bottom: 0.266667rem;
+}
+.item:nth-last-child(1) {
+	margin-bottom: 0;
 }
 .hariline .item {
 	border: .5px solid #cccccc;
@@ -25,6 +29,68 @@
 	text-align: right;
 }
 
-.scroller {
-	height: 4.4rem;
+
+
+
+
+
+
+
+
+
+.iScrollHorizontalScrollbar {
+	position: absolute;
+	z-index: 9999;
+	height: 16px;
+	left: 2px;
+	right: 2px;
+	bottom: 2px;
+	overflow: hidden;
+}
+
+.iScrollHorizontalScrollbar.iScrollBothScrollbars {
+	right: 18px;
+}
+
+.iScrollVerticalScrollbar {
+	position: absolute;
+	z-index: 9999;
+	width: 16px;
+	bottom: 2px;
+	top: 2px;
+	right: 0px;
+	overflow: hidden;
+}
+
+.iScrollVerticalScrollbar.iScrollBothScrollbars {
+	bottom: 18px;
+}
+
+.iScrollIndicator {
+	position: absolute;
+	background: #cc3f6e;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #EB97B4 #7C2845 #7C2845 #EB97B4;
+	border-radius: 8px;
+	right: 0.053333rem;
+	height: 0.8rem;
+}
+
+.iScrollHorizontalScrollbar .iScrollIndicator {
+	height: 100%;
+	background: -moz-linear-gradient(left,  #cc3f6e 0%, #93004	e 100%);
+	background: -webkit-linear-gradient(left,  #cc3f6e 0%,#93004e 100%);
+	background: -o-linear-gradient(left,  #cc3f6e 0%,#93004e 100%);
+	background: -ms-linear-gradient(left,  #cc3f6e 0%,#93004e 100%);
+	background: linear-gradient(to right,  #cc3f6e 0%,#93004e 100%);
+}
+
+.iScrollVerticalScrollbar .iScrollIndicator {
+	width: 100%;
+	background: -moz-linear-gradient(top, #cc3f6e 0%, #93004e 100%);
+	background: -webkit-linear-gradient(top,  #cc3f6e 0%,#93004e 100%);
+	background: -o-linear-gradient(top, #cc3f6e 0%,#93004e 100%);
+	background: -ms-linear-gradient(top, #cc3f6e 0%,#93004e 100%);
+	background: linear-gradient(to bottom,  #cc3f6e 0%,#93004e 100%);
 }

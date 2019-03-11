@@ -6,7 +6,8 @@ var refresher = {
         pullUpLable: '',
         pullingUpLable: 'Release to load more...',
         loadingLable: 'Loading...',
-        pullingUpEnd: '已经没有更多了...'
+        pullingUpEnd: '已经没有更多了...',
+        netError: '请求发生异常,稍稍休息一下'
     },
     init: function(parameter) {
 
@@ -72,7 +73,7 @@ var refresher = {
                 var y = scroller.y >> 0;
 
                 // 下拉 释放
-                if (y > 0) {
+                if (y > 0 && this.startY >= -pullDownOffset) {
                     var loaderDown = pullDownDIV.querySelector('.loader');
                     loaderDown.style.display = 'block';
                     pullDownDIV.style.lineHeight = '20px';
@@ -80,7 +81,23 @@ var refresher = {
                     pullDownLableDIV.innerHTML = that.info.loadingLable;
                     scroller.options.minY = 0;
                 }
+            },
+            scrollbars: 'custom',
+            resizeScrollbars: false,
+            fadeScrollbars: true,
+            shrinkScrollbars: 'clip',
+            indicators: {
+                el: '.iScrollVerticalScrollbar', 
+                ignoreBoundaries: false,
             }
+
+
+
+
+
+
+
+
         });
         //添加 refresh
         this.spec[parameter.id].on('refresh', function() {
@@ -101,7 +118,7 @@ var refresher = {
             if (this.maxScrollY === -1) {
                 this.options.maxY = this.maxScrollY - pullUpOffset;
             } else {
-                this.options.maxY = this.maxScrollY;
+                this.options.maxY = this.maxScrollY < (-pullUpOffset - 1) ? this.maxScrollY : (-pullUpOffset - 1);
             }
 
             /* REPLACE END: refresh */
@@ -113,6 +130,7 @@ var refresher = {
                 pullDownDIV.classList.remove('loading');
                 pullDownDIV.style.lineHeight = '40px';
                 pullDownLableDIV.innerHTML = that.info.pullDownLable;
+                pullUpLableDIV.innerHTML = that.info.pullUpLable;
                 loaderDown.style.display = 'none';
                 this.options.minY = -pullDownOffset;
 
@@ -121,7 +139,7 @@ var refresher = {
                 var loaderUp = pullUpDIV.querySelector('.loader');
                 pullUpDIV.classList.remove('loading');
                 pullUpDIV.style.lineHeight = '40px';
-                pullUpLableDIV.innerHTML = that.info.pullUpLable;
+                pullUpLableDIV.innerHTML = this.options.net_error ? that.info.netError : this.options.no_more_data ? that.info.pullingUpEnd : that.info.pullUpLable;
                 loaderUp.style.display = 'none';
             }
         })
@@ -174,7 +192,7 @@ var refresher = {
         this.spec[parameter.id].on('scrollEnd', function() {
             var y = this.y >> 0;
             // 上拉
-            if (y <= this.options.maxY) {
+            if (y <= this.options.maxY && !this.options.no_more_data) {
                 var loaderUp = pullUpDIV.querySelector('.loader');
 
                 loaderUp.style.display = 'block';
@@ -193,6 +211,5 @@ var refresher = {
                 }
             }
         });
-
     },
 }
