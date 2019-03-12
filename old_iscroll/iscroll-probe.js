@@ -648,8 +648,9 @@ IScroll.prototype = {
 
 		// custom_by_jz
 		if (this.options.onRelease) {
-			this.options.onRelease(this);
+			this.options.onRelease.call(this);
 		}
+
 		// reset if we are outside of the boundaries
 		if ( this.resetPosition(this.options.bounceTime) ) {
 			return;
@@ -774,9 +775,14 @@ IScroll.prototype = {
 
 		this.scrollerWidth	= rect.width;
 		this.scrollerHeight	= rect.height;
-
+		
 		this.maxScrollX		= this.wrapperWidth - this.scrollerWidth;
 		this.maxScrollY		= this.wrapperHeight - this.scrollerHeight;
+		// custom_by_jz
+		if (this.options.pullUpOffset) {
+                this.maxScrollY = this.wrapperHeight - this.scrollerHeight + this.options.pullUpOffset;
+        }
+
 
 /* REPLACE END: refresh */
 
@@ -808,7 +814,7 @@ IScroll.prototype = {
 			}
 		}
 		this.wrapperOffset = utils.offset(this.wrapper);
-
+		 
 		this._execEvent('refresh');
 
 		this.resetPosition();

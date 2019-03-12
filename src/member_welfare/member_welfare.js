@@ -1,6 +1,6 @@
 window.onload = function() {
     member_welfare.init_data();
-    member_welfare.init_scroller();
+    
 }
 
 
@@ -14,8 +14,8 @@ var member_welfare = (function() {
                 .then(function(response) {
                     var data = response.data.member_welfare,
                         len = data.length,
-                        dataCount = member_welfare.me.dataCount;
-                    num = 10;
+                        dataCount = member_welfare.me.dataCount,
+                        num = 10;
 
                     if (!data && len === 0) {
                         refresher.spec['#wrapper'].options.no_more_data = true;
@@ -24,6 +24,7 @@ var member_welfare = (function() {
                     }
                     if (!state) {
                         num = 5;
+                        member_welfare.init_scroller();
                     }
                     if (state === 'pullDownAction') {
                         dataCount = member_welfare.me.dataCount = 0;
@@ -37,13 +38,13 @@ var member_welfare = (function() {
                     for (var i = 0; i < num; i++) {
                         if (dataCount < len) {
                             $('#wrapper li').append(`<div class='item'>
-													<div class='item_left'>
-														<span>${data[dataCount].name}</span>
-													</div>
-													<div class='item_right'>
-														折扣: <span>${data[dataCount].discount}</span> 折
-													</div>
-												</div>`);
+                                                    <div class='item_left'>
+                                                        <span>${data[dataCount].name}</span>
+                                                    </div>
+                                                    <div class='item_right'>
+                                                        折扣: <span>${data[dataCount].discount}</span> 折
+                                                    </div>
+                                                </div>`);
                             dataCount++;
                             member_welfare.me.dataCount++;
                         } else {
@@ -52,7 +53,7 @@ var member_welfare = (function() {
                     }
 
                     if (state) {
-                    	callback();
+                        callback();
                     }
 
                 })

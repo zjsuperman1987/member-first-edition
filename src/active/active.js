@@ -1,65 +1,61 @@
 window.onload = function() {
-    active.init_data('init');
+    active.init_data();
 }
 
 var active = (function() {
     return {
-        spec: {
-            activeCount: 0
+        me: {
+            dataCount: 0
         },
-        init_data: function(state) {
+        init_data: function(state, callback) {
 
             axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/active')
                 .then(function(response) {
                     console.log(response);
-                    // debugger;
-                    // 下拉刷新 清空数据
-                    if (state === 'pullDown') {
-                        refresher.spec['#wrapper'].options.updateContent = false;
-                        active.spec.activeCount = 0;
-                        $('#wrapper ul li').empty();
+                    var data = response.data.active,
+                        len = data.length,
+                        dataCount = active.me.dataCount,
+                        num = 3;
+                    // 没有数据
+                    if (!data && len === 0) {
+                        refresher.spec['#wrapper'].options.no_more_data = true;
+                        callback();
+                        return;
                     }
-                    if (response.data.active && response.data.active.length != 0) {
-                        data = response.data.active,
-                            len = data.length;
-                        for (var i = 0; i < 3; i++) {
-                            var activeCount = active.spec.activeCount;
-                            if (activeCount < len) {
-                                $('#wrapper ul li').append(`<dir class='active_wrapper'>
-                                                  <img src=${data[activeCount].imgUrl}>
+                    if (state === 'pullDownAction') {
+                        dataCount = active.me.dataCount = 0;
+                        refresher.spec['#wrapper'].options.no_more_data = false;
+                        $('#wrapper li').empty();
+                    }
+                    for (var i = 0; i < num; i++) {
+                        if (dataCount < len) {
+                            $('#wrapper ul li').append(`<dir class='active_wrapper'>
+                                                  <img src=${data[dataCount].imgUrl}>
                                                   <div class='aw_top'>
-                                                      <span>${data[activeCount].activeTitle}</span>
-                                                      <span>${data[activeCount].activeType}</span>
+                                                      <span>${data[dataCount].activeTitle}</span>
+                                                      <span>${data[dataCount].activeType}</span>
                                                   </div>
                                                   <div class='aw_bottom'>
-                                                      <span>${data[activeCount].startDate}~${data[activeCount].endDate}</span>
-                                                      <span>${data[activeCount].activeState}</span>
+                                                      <span>${data[dataCount].startDate}~${data[dataCount].endDate}</span>
+                                                      <span>${data[dataCount].activeState}</span>
                                                   </div>
                                               </dir>`);
-                                active.spec.activeCount++;
-                            }
-                        }
-
-                        if (state === 'init') {
-                            active.init_scroller();
-
-                        } else if (state === 'pullUp') {
-                            if (activeCount === len) {
-                                refresher.spec['#wrapper'].options.updateContent = true;
-                            }
-                            setTimeout(function() {
-                                refresher.spec['#wrapper'].refresh();
-                            }, 0);
+                            dataCount++;
+                            active.me.dataCount++;
                         } else {
-                            refresher.spec['#wrapper'].scroller = document.querySelector('#wrapper').querySelector('.scroller');
-                            setTimeout(function() {
-                                refresher.spec['#wrapper'].refresh();
-                            }, 0);
+                            refresher.spec['#wrapper'].options.no_more_data = true;
                         }
+                    }
+
+                    if (state) {
+                        callback();
+                    } else {
+                        active.init_scroller();
                     }
                     active.init_tap();
                 })
                 .catch(function(error) {
+                    refresher.spec['#wrapper'].options.net_error = true;
                     console.log(error);
                 });
         },
@@ -67,21 +63,19 @@ var active = (function() {
             refresher.init({
                 id: '#wrapper',
                 pullDownAction: function() {
-                    active.init_data('pullDown');
+                    active.init_data('pullDownAction', refresh);
                 },
                 pullUpAction: function() {
-                    active.init_data('pullUp');
+                    active.init_data('pullUpAction', refresh);
                 }
             });
 
+            function refresh() {
+                setTimeout(function() {
+                    refresher.spec['#wrapper'].refresh();
+                }, 0);
+            }
 
-            refresher.spec['#wrapper'].on('beforeScrollStart', function() {
-                active.spec.tap = true;
-            })
-
-            refresher.spec['#wrapper'].on('scroll', function() {
-                active.spec.tap = !(active.spec.tap);
-            })
 
         },
         init_tap: function() {
@@ -109,7 +103,7 @@ var active_search = (function() {
     return {
         // 初始化
         search_data: [],
-        activeCount: 0,
+        dataCount: 0,
         preText: '',
         // 初始化页面
         init_search_page: function() {
@@ -118,7 +112,7 @@ var active_search = (function() {
 
                 var json_string = localStorage.getItem('history'),
                     array = JSON.parse(json_string);
-                    len = array.length;
+                len = array.length;
 
                 $('.history_content').empty();
                 for (var i = 0; i < len; i++) {
@@ -141,7 +135,8 @@ var active_search = (function() {
         // 点击搜索
         search_page_click: function() {
             $('.as_right, .history_content span, .hot_search span, input[type=text], .as_left, .history_top_right').off('click').on('click', function(e) {
-                 if (this.className === 'as_left'){
+                // 返回
+                if (this.className === 'as_left') {
                     if ($('#spScrollerWrapper')) $('#spScrollerWrapper').remove();
                     $('.active_search_page').hide();
                     $('.bottom_page').show();
@@ -149,16 +144,13 @@ var active_search = (function() {
                     $('.as_middle').css('padding', '0');
                     $('input[type=text]').val('');
                     $('.as_left, .as_right').hide();
-                    console.log('1232132132131231')
-
                 }
-                if (this.className === 'history_top_right'){
+                // 移除
+                if (this.className === 'history_top_right') {
                     localStorage.removeItem('history');
                     $('.history_content').empty();
                 }
-
-
-
+                // 搜索框
                 if (this.tagName === 'INPUT') {
                     $('.container').show();
                     if ($('#spScrollerWrapper')) $('#spScrollerWrapper').remove();
@@ -166,29 +158,30 @@ var active_search = (function() {
                     $('.no_search').remove();
                     return;
                 }
-                
+                // 热门标签
                 if (this.tagName === 'SPAN') {
                     $('input[type=text]').val($(this).text());
                 }
+                // 搜索框无内容 
                 if (!$('input[type=text]').val()) return;
-               
+
 
 
                 active_search.search($('input[type=text]').val());
             })
         },
-        search: function(text, state) {
+        search: function(text, state, callback) {
             var regexp = new RegExp(text, 'g');
             var that = this;
-            this.activeCount = 0;
+            this.dataCount = 0;
             // if(this.preText && this.preText === text && state != 'pullDown') return;
             // this.preText = text;
-            
+
             axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/active')
                 .then(function(response) {
                     var data = response.data.active;
                     var len = data.length;
-                    // 没有找到
+                    // 没有数据
                     if (!data || len === 0) {
                         $('.no_search').remove();
                         var no_search = $('<div>');
@@ -206,7 +199,7 @@ var active_search = (function() {
                             that.search_data.push(data[i]);
                         }
                     }
-
+                    // 没有数据
                     if (that.search_data.length === 0) {
                         $('.no_search').remove();
                         var no_search = $('<div>');
@@ -218,41 +211,41 @@ var active_search = (function() {
 
 
                     if (!state) {
-                        active_search.update_search_page();    
-                    }else {
-                        active_search.update_search_page(state);
+                        active_search.update_search_page();
+                    } else {
+                        active_search.update_search_page(state, callback);
                     }
-                    
+
                 })
                 .catch(function(error) {
+                    refresher.spec['#wrapper'].options.net_error = true;
                     console.log(error);
                 });
         },
 
-        update_search_page: function(state) {
+        update_search_page: function(state, callback) {
 
-            var that = this;
+            var that = this,
                 data = this.search_data,
                 len = data.length;
-            
+
             if (state === 'pullDown') {
+                refresher.spec['#spScrollerWrapper'].options.no_more_data = false;
                 $('#spScrollerWrapper li').empty();
-                // this.activeCount = 0;
+                this.dataCount = 0;
                 inserting_scroller();
-                // 请求数据异步 所以这里执行刷新方法
-                setTimeout(function(){
-                    refresher.spec['#spScrollerWrapper'].refresh();
-                },0);
+                callback();
             } else if (state === 'pullUp') {
                 inserting_scroller();
-                if (len === that.activeCount) {
-                    refresher.spec['#spScrollerWrapper'].options.updateContent = true;
+                if (len === that.dataCount) {
+                    refresher.spec['#spScrollerWrapper'].options.no_more_data = true;
                 }
+                callback();
             } else {
                 var div = document.createElement('div'),
                     ul = document.createElement('ul'),
                     li = document.createElement('li');
-                   
+
                 if ($('#spScrollerWrapper')) $('#spScrollerWrapper').remove();
                 div.id = 'spScrollerWrapper';
                 ul.appendChild(li);
@@ -265,61 +258,59 @@ var active_search = (function() {
                 this.init_search_scroller();
                 // 更新历史搜索记录
                 active_search.history_record();
-
-
-               
             }
 
-            
-            function inserting_scroller () {
+
+            function inserting_scroller() {
                 $('.no_search').remove();
                 for (var i = 0; i < 3; i++) {
-                    if (that.activeCount < len) {
-                        var activeCount;
-                        activeCount = that.activeCount ++;
+                    if (that.dataCount < len) {
+                        var dataCount;
+                        dataCount = that.dataCount++;
                         $('#spScrollerWrapper li').append(`<dir class='active_wrapper'>
-                                                  <img src=${data[activeCount].imgUrl}>
+                                                  <img src=${data[dataCount].imgUrl}>
                                                   <div class='aw_top'>
-                                                      <span>${data[activeCount].activeTitle}</span>
-                                                      <span>${data[activeCount].activeType}</span>
+                                                      <span>${data[dataCount].activeTitle}</span>
+                                                      <span>${data[dataCount].activeType}</span>
                                                   </div>
                                                   <div class='aw_bottom'>
-                                                      <span>${data[activeCount].startDate}~${data[activeCount].endDate}</span>
-                                                      <span>${data[activeCount].activeState}</span>
+                                                      <span>${data[dataCount].startDate}~${data[dataCount].endDate}</span>
+                                                      <span>${data[dataCount].activeState}</span>
                                                   </div>
                                               </dir>`);
                     }
                 }
             }
         },
-        init_search_scroller: function(){
+        init_search_scroller: function() {
             var that = this;
+
             refresher.init({
                 id: "#spScrollerWrapper",
-                pullDownAction: function(){
-                    that.search($('input[type=text]').val(), 'pullDown');
-                    refresher.spec['#spScrollerWrapper'].options.updateContent = false;
-                   
+                pullDownAction: function() {
+                    that.search($('input[type=text]').val(), 'pullDown', refresh);
                 },
                 pullUpAction: function() {
-                    // debugger;
-                    that.update_search_page('pullUp');
-                    setTimeout(function(){
-                        refresher.spec['#spScrollerWrapper'].refresh();
-                    },0);
+                    that.update_search_page('pullUp', refresh);
                 }
-            })   
+            });
+            function refresh () {
+                setTimeout(function () {
+                    refresher.spec['#spScrollerWrapper'].refresh();
+                },0)
+            }
+
         },
-        history_record: function () {
+        history_record: function() {
             if (!localStorage.getItem('history')) {
                 var array = [];
                 array.push($('input[type=text]').val());
                 var json = JSON.stringify(array);
-                localStorage.setItem('history',json);
-            }else {
+                localStorage.setItem('history', json);
+            } else {
                 var json_string = localStorage.getItem('history'),
                     array = JSON.parse(json_string);
-                    text = $('input[type=text]').val();
+                text = $('input[type=text]').val();
                 if (array.indexOf(text) != -1) return;
                 if (array.length === 10) array.pop();
                 array.unshift(text);

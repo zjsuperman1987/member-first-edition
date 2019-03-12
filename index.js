@@ -8,8 +8,8 @@ window.onload = function() {
 
 memberHome = (function() {
     return {
-        globSpec: {
-            welfareCount: 0
+        me: {
+            dataCount: 0
         },
         initSwiper: function() {
             // 头部轮播
@@ -40,90 +40,84 @@ memberHome = (function() {
                 touchMoveStopPropagation: false
             })
         },
-        init_welfare_data: function(state) {
+        init_welfare_data: function(state, callback) {
             axios.get('https://www.easy-mock.com/mock/5c77f974ee24c36460daaffb/example/index_data')
                 .then(function(response) {
-                    var melfareData = response.data && response.data.melfareData
-                    if (melfareData && melfareData.length != 0) {
-                        var len = melfareData.length;
-                        if (state === 'pullDown') {
-                            $('.welfare_wrapper').empty();
-                            memberHome.globSpec.welfareCount = 0;
-                            refresher.spec['#glob_wrapper_iscroll'].options.updateContent = false;
-                        };
-                        for (var i = 0; i < 3; i++) {
-                            if (memberHome.globSpec.welfareCount < len) {
-                                memberHome.globSpec.welfareCount++;
-                                $('.welfare_wrapper').append("<div class='welfare_wrapper_content'>" +
-                                    "<div class='welfare_item'>" +
-                                    "<i class='cro_left_top'></i>" +
-                                    "<i class='cro_right_top'></i>" +
-                                    "<i class='cro_left_bottom'></i>" +
-                                    "<i class='cro_right_bottom'></i>" +
-                                    "<div class='welfare_item_left'>" +
-                                    "<span class='welfare_item_left_icon'><i>" + melfareData[i].floor + "</i></span>" +
-                                    "<span class='welfare_item_left_font'>" + melfareData[i].melfareAmount + "元" + melfareData[i].melfareType + "</span>" +
-                                    "</div>" +
-                                    "<div class='welfare_item_right'>" +
-                                    "<div class='welfare_item_right_title'>" + melfareData[i].company + melfareData[i].melfareAmount + "元" + melfareData[i].melfareType + "</div>" +
-                                    "<div class='welfare_item_right_top'>" + melfareData[i].company + melfareData[i].melfareAmount + "元" + melfareData[i].melfareType + "</div>" +
-                                    "<div class='welfare_item_right_middle'>" + melfareData[i].mall + "</div>" +
-                                    "<div class='welfare_item_right_bottom'>" +
-                                    "<span class='nowPrice'>￥" + melfareData[i].currentAmount + "</span>" +
-                                    "<span class='oldPrice'>￥" + melfareData[i].melfareAmount + "</span>" +
-                                    "<span class='buy'>购买</span>" +
-                                    "</div>" +
-                                    "</div>" +
-                                    "</div>" +
-                                    "</div>")
-                            }
-                            if (memberHome.globSpec.welfareCount === len) {
-                                refresher.spec['#glob_wrapper_iscroll'].options.updateContent = true;
-                            }
-                        }
+                    var data = response.data && response.data.welfareData,
+                        len = data.length,
+                        dataCount = memberHome.me.dataCount,
+                        num = 3;
 
-                        if (!state) {
-                            memberHome.init_iscroll();
-                        } else if (state === 'pullUp') {
-                            setTimeout(function() {
-                                refresher.spec['#glob_wrapper_iscroll'].refresh();
-                            }, 0);
+                    if (!data && len === 0) {
+                        refresher.spec['#wrapper'].options.no_more_data = true;
+                        callback();
+                        return;
+                    }
+                    if (state === 'pullDownAction') {
+                        dataCount = memberHome.me.dataCount = 0;
+                        refresher.spec['#wrapper'].options.no_more_data = false;
+                        $('.welfare_wrapper').empty();
+                    }
+ 
+                    for (var i = 0; i < num; i++) {
+                        if (dataCount < len) {
+                            $('.welfare_wrapper').append("<div class='welfare_wrapper_content'>" +
+                                "<div class='welfare_item'>" +
+                                "<i class='cro_left_top'></i>" +
+                                "<i class='cro_right_top'></i>" +
+                                "<i class='cro_left_bottom'></i>" +
+                                "<i class='cro_right_bottom'></i>" +
+                                "<div class='welfare_item_left'>" +
+                                "<span class='welfare_item_left_icon'><i>" + data[i].floor + "</i></span>" +
+                                "<span class='welfare_item_left_font'>" + data[i].melfareAmount + "元" + data[i].melfareType + "</span>" +
+                                "</div>" +
+                                "<div class='welfare_item_right'>" +
+                                "<div class='welfare_item_right_title'>" + data[i].company + data[i].melfareAmount + "元" + data[i].melfareType + "</div>" +
+                                "<div class='welfare_item_right_top'>" + data[i].company + data[i].melfareAmount + "元" + data[i].melfareType + "</div>" +
+                                "<div class='welfare_item_right_middle'>" + data[i].mall + "</div>" +
+                                "<div class='welfare_item_right_bottom'>" +
+                                "<span class='nowPrice'>￥" + data[i].currentAmount + "</span>" +
+                                "<span class='oldPrice'>￥" + data[i].melfareAmount + "</span>" +
+                                "<span class='buy'>购买</span>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>");
+
+                            dataCount++;
+                            memberHome.me.dataCount++;
                         } else {
-                            var wrapper = refresher.spec['#glob_wrapper_iscroll'];
-                            wrapper.scroller = document.querySelector('#glob_wrapper_iscroll').querySelector('.scroller');
-                            setTimeout(function() {
-                                refresher.spec['#glob_wrapper_iscroll'].refresh();
-                            }, 0);
+                            refresher.spec['#wrapper'].options.no_more_data = true;
                         }
+                    }
 
+                    if (state) {
+                        callback();
+                    }else {
+                        memberHome.init_iscroll();
                     }
                 })
                 .catch(function(error) {
-
-
+                    refresher.spec['#wrapper'].options.net_error = true;
                     console.log(error);
                 });
         },
         init_iscroll: function() {
-
             refresher.init({
-                id: '#glob_wrapper_iscroll',
+                id: '#wrapper',
                 pullDownAction: function() {
-                    memberHome.init_welfare_data("pullDown");
+                    memberHome.init_welfare_data('pullDownAction', refresh);
                 },
                 pullUpAction: function() {
-                    memberHome.init_welfare_data('pullUp');
+                    memberHome.init_welfare_data('pullUpAction', refresh);
                 }
             });
 
-            refresher.spec['#glob_wrapper_iscroll'].on('beforeScrollStart', function() {
-                memberHome.globSpec.tap = true;
-                console.log('beforeScrollStart')
-            })
-
-            refresher.spec['#glob_wrapper_iscroll'].on('scroll', function() {
-                memberHome.globSpec.tap = !(memberHome.globSpec.tap);
-            })
+            function refresh() {
+                setTimeout(function() {
+                    refresher.spec['#wrapper'].refresh();
+                }, 0)
+            }
         },
         // 页面跳转
         initSkip: function() {
@@ -149,6 +143,7 @@ memberHome = (function() {
                     case '抽奖':
                         break;
                     case '游戏':
+                        window.location.href = './src/roulette_game/roulette.html';
                         break;
                     default:
                         break;
