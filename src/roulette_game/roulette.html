@@ -24,9 +24,39 @@
 
 <body>
     <div id='wrapper'>
-        <div class='canvas_wrapper'>
-            <canvas id="canvas1" width="800px" height="500px" style="position: absolute;">您的浏览器不支持canvas标签！</canvas>
-            <canvas id="canvas2" width="800px" height="500px" style="position: absolute;">您的浏览器不支持canvas标签！</canvas>
+        <ul>
+            <li>
+                <div class='container'>
+                    <div class='show_prize'>
+                        查看我的奖品
+                    </div>
+                    <div class='discribe'>
+                        我的积分: &nbsp<span class='integral'> &nbsp</span>,&nbsp 今日还剩&nbsp&nbsp<span class='num'>   </span>&nbsp&nbsp次抽奖机会
+                    </div>
+                    <div class='turntable_wrapper'></div>
+                    <div class='list'>
+                        <div class='item_top'><span>中奖纪录</span></div>
+                        <div class="swiper-container winning_record item_bottom">
+                            <div class="swiper-wrapper">
+                            </div>
+                        </div>
+                    </div>
+                    <div class='list'>
+                        <div class='item_top'><span>轮盘抽奖规则</span></div>
+                        <div class='item_bottom rule'></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- 遮罩 -->
+    <div class='transparent'></div>
+    <div class='new_panel'>
+        <i></i>
+        <div id='sub_wrapper'>
+            <ul><li>
+              
+            </li></ul>
         </div>
     </div>
     <script type="text/javascript" src='../../js/common.js'></script>
