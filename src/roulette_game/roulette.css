@@ -4,7 +4,7 @@
     height: 14.773333rem;
 }
 
-#wrapper ul {
+#wrapper>ul {
     background: #f24c4e
 }
 
@@ -41,7 +41,7 @@
 .turntable_wrapper {
     width: 100%;
     height: 7.68rem;
-    background: gold;
+    /*background: white;*/
     margin-bottom: 0.586667rem;
 }
 

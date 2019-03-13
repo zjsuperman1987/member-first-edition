@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../node_modules/swiper/dist/css/swiper.min.css">
     <link rel="stylesheet" type="text/css" href="../../js/iscroll/iscroll-pull-down-refresh.css">
     <link rel="stylesheet" type="text/css" href="roulette.css">
+    <link rel="stylesheet" type="text/css" href="turntable/turntable.css">
     <title>canvas</title>
 </head>
 
@@ -33,7 +34,44 @@
                     <div class='discribe'>
                         我的积分: &nbsp<span class='integral'> &nbsp</span>,&nbsp 今日还剩&nbsp&nbsp<span class='num'>   </span>&nbsp&nbsp次抽奖机会
                     </div>
-                    <div class='turntable_wrapper'></div>
+                    <!-- 轮盘 -->
+                    <div class='turntable_wrapper'>
+                        <div class='gb_wrapper'>
+                            <section class='gb-wheel-container' id='gbWheel'>
+                                <div class='gb-wheel-content gb-wheel-run'>
+                                   <ul class='gb-wheel-line'>
+                                       <li class="gb-wheel-litem" style="transform: rotate(0.08333333333333333turn)"></li>
+                                          <li class="gb-wheel-litem" style="transform: rotate(0.25turn)"></li>
+                    <li class="gb-wheel-litem" style="transform: rotate(0.41666666666666663turn)"></li>
+                    <li class="gb-wheel-litem" style="transform: rotate(0.5833333333333334turn)"></li>
+                    <li class="gb-wheel-litem" style="transform: rotate(0.75turn)"></li>
+                    <li class="gb-wheel-litem" style="transform: rotate(0.9166666666666666turn)"></li>
+                                   </ul>
+                                   <div class='gb-wheel-list'>
+                                       <div class='gb-wheel-item'>
+                                            <p class="gb-wheel-icontent" style="transform: rotate(0turn)">0</p>
+                                       </div>
+                                        <div class="gb-wheel-item">
+                        <p class="gb-wheel-icontent" style="transform: rotate(0.16666666666666666turn)">1</p>
+                    </div>
+                     <div class="gb-wheel-item">
+                        <p class="gb-wheel-icontent" style="transform: rotate(0.3333333333333333turn)">2</p>
+                    </div>
+                    <div class="gb-wheel-item">
+                        <p class="gb-wheel-icontent" style="transform: rotate(0.5turn)">3</p>
+                    </div>
+                    <div class="gb-wheel-item">
+                        <p class="gb-wheel-icontent" style="transform: rotate(0.6666666666666666turn)">4</p>
+                    </div>
+                    <div class="gb-wheel-item">
+                        <p class="gb-wheel-icontent" style="transform: rotate(0.8333333333333333turn)">5</p>
+                    </div>
+                                   </div>
+                                </div>
+                                <a href="javascript:;" class="gb-wheel-btn" id="gbLottery">抽奖</a>
+                            </section>
+                        </div>
+                    </div>
                     <div class='list'>
                         <div class='item_top'><span>中奖纪录</span></div>
                         <div class="swiper-container winning_record item_bottom">
@@ -60,6 +98,7 @@
         </div>
     </div>
     <script type="text/javascript" src='../../js/common.js'></script>
+    <script type="text/javascript" src='turntable/turntable.js'></script>
 </body>
 
 </html>
