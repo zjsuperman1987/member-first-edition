@@ -52,7 +52,7 @@
             console.log(response.data.turnTable);
             var len,
                 awards = [],
-                turnNum
+                turnNum,
                 turnTable = response.data.turnTable;
 
             if (!turnTable && turnTable.length === 0) {
@@ -61,7 +61,7 @@
                 turnNum = 1 / len;
                 
                 // 取得奖品
-                j = Math.floor(Math.random() * len)
+                var j = Math.floor(Math.random() * len)
                 lottery = response.data.turnTable[j];
 
 
@@ -101,20 +101,18 @@
                             .then(function(response) {
                                 var preIndex = 0,
                                     nextIndex = 0,
+                                    tempIndex,
                                     rotate,
                                     preLottery;
 
                                 i++;
-                                j = Math.floor(Math.random() * len);
-                                preIndex = response.data.turnTable.indexOf(lottery);
-                                nextIndex = response.data.turnTable
-
+                                var nextIndex = response.data.turnTable.indexOf(lottery);                                
 
                                 $('.integral').text(integral - 50);
                                 $('.num').text(parseInt($('.num').text()) - 1);
                                 
-                                
-                                console.log(preIndex)
+                                console.log(preIndex, nextIndex)
+
                                 if (preIndex - nextIndex < 0) {
                                     rotate = (360 / len) * (preIndex - nextIndex + len) + i * 3600;
                                 } else {
@@ -122,11 +120,14 @@
                                 }
                                 preIndex = nextIndex;
                                 gbWheel.querySelector('.gb-wheel-content').style[transform] = 'rotate(' + rotate + 'deg)';
-                                
+                                $('.gb-wheel-btn').css({ 'color': '#333' });
+                                // 提前请求下一次奖品
+                                tempIndex = Math.floor(Math.random() * len);
+                                preIndex = nextIndex;
+                                nextIndex = tempIndex;
+
                                 // 控制连续点击
                                 isTurn = false;
-                                $('.gb-wheel-btn').css({ 'color': '#333' });
-                                // 动画结束
                                 timer = setTimeout(function() {
                                     isTurn = true;
                                     $('.gb-wheel-btn').css({ 'color': 'white' });
