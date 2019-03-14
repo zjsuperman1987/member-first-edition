@@ -114,7 +114,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    z-index: 400;
+    z-index: 3;
     width: 2.133333rem;
     height: 2.133333rem;
     margin-left: -1.066667rem;
@@ -160,7 +160,11 @@ a.gb-wheel-btn {
 .gb-wheel-iicon [class*=icono-] {
     color: #e4370e
 }
-
+.gb-wheel-iicon img {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin: 0 auto;
+}
 .gb-wheel-run {
     -webkit-transition: -webkit-transform 6s ease;
     transition: transform 6s ease

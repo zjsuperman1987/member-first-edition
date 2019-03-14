@@ -35,35 +35,42 @@
         return cssSupport.transform;
     }
 
-
-
-    var gbWheel = document.querySelector('#gbWheel'),
-        lineList = gbWheel.querySelector('ul.gb-wheel-line'),
-        itemList = gbWheel.querySelector('.gb-wheel-list'),
-        lineListHtml = [],
-        itemListHtml = [];
-
-    var transform = preTransform();
-
+    // 弹窗
+    function popFrame(string, time) {
+        var timer;
+        if (!time) time = 500;
+        $('body .layer').remove();
+        $('body').append('<div class=layer>' + string + '</div>');
+        var timer = setTimeout(function() {
+            $('body .layer').remove('.layer');
+            clearTimeout(timer);
+        }, time);
+    }
 
 
     axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/roulette')
         .then(function(response) {
             console.log(response.data.turnTable);
+
             var len,
                 awards = [],
                 turnNum,
-                turnTable = response.data.turnTable;
+                initIndex,
+                turnTable = response.data.turnTable,
+                lineListHtml = [],
+                itemListHtml = [],
+                gbWheel = document.querySelector('#gbWheel'),
+                lineList = gbWheel.querySelector('ul.gb-wheel-line'),
+                itemList = gbWheel.querySelector('.gb-wheel-list'),
+                transform = preTransform();
 
-            if (!turnTable && turnTable.length === 0) {
-            } else {
+
+            if (!turnTable && turnTable.length === 0) {} else {
                 len = turnTable.length;
                 turnNum = 1 / len;
-                
-                // 取得奖品
-                var j = Math.floor(Math.random() * len)
-                lottery = response.data.turnTable[j];
 
+                // 取得奖品
+                initIndex = Math.floor(Math.random() * len);
 
                 turnTable.forEach(function(v, i, a) {
                     // 分割线
@@ -74,6 +81,7 @@
                     itemListHtml.push('<div class="gb-wheel-icontent" style="' + transform + ': rotate(' + (i * turnNum) + 'turn)">');
                     itemListHtml.push('<p class="gb-wheel-iicon">');
                     itemListHtml.push('<i class="' + v.name + '"></i>');
+                    // itemListHtml.push('<img src="../../../images/icon/my_card.png">');
                     itemListHtml.push('</p>');
                     itemListHtml.push('<p class="gb-wheel-itext">');
                     itemListHtml.push(v.text);
@@ -87,8 +95,11 @@
             }
 
             // 旋转
-            var i = 0,
-                isTurn = true;
+            var isTurn = true,
+                preIndex = 0,
+                rotate = 0,
+                deg = 360 / len,
+                nextIndex = initIndex;
 
             $('#gbLottery').on('tap', function() {
                 var integral, num, timer;
@@ -97,65 +108,61 @@
 
                 if (integral && integral - 50 >= 0) {
                     if (isTurn) {
+                    	console.log(roulette.me.mainScroll);
+                    	roulette.me.mainScroll.disable();
                         axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/roulette')
                             .then(function(response) {
-                                var preIndex = 0,
-                                    nextIndex = 0,
-                                    tempIndex,
-                                    rotate,
-                                    preLottery;
-
-                                i++;
-                                var nextIndex = response.data.turnTable.indexOf(lottery);                                
-
-                                $('.integral').text(integral - 50);
-                                $('.num').text(parseInt($('.num').text()) - 1);
-                                
-                                console.log(preIndex, nextIndex)
-
-                                if (preIndex - nextIndex < 0) {
-                                    rotate = (360 / len) * (preIndex - nextIndex + len) + i * 3600;
+                                if (response.data.turnTable && response.data.turnTable.length !== 0) {
+                                    nextIndex = Math.floor(Math.random() * response.data.turnTable.length);
+                                    console.log('请求中', nextIndex)
                                 } else {
-                                    rotate = i * 3600 + (preIndex - nextIndex) * 360;
+                                    nextIndex = 0;
                                 }
-                                preIndex = nextIndex;
-                                gbWheel.querySelector('.gb-wheel-content').style[transform] = 'rotate(' + rotate + 'deg)';
-                                $('.gb-wheel-btn').css({ 'color': '#333' });
-                                // 提前请求下一次奖品
-                                tempIndex = Math.floor(Math.random() * len);
-                                preIndex = nextIndex;
-                                nextIndex = tempIndex;
-
-                                // 控制连续点击
-                                isTurn = false;
-                                timer = setTimeout(function() {
-                                    isTurn = true;
-                                    $('.gb-wheel-btn').css({ 'color': 'white' });
-                                    clearTimeout(timer);
-                                }, 6000);
                             })
                             .catch(function(error) {
                                 console.log(error);
                             })
+
+                        $('.integral').text(integral - 50);
+                        $('.num').text(parseInt($('.num').text()) - 1);
+
+                        console.log(preIndex, nextIndex)
+
+                        if (preIndex - nextIndex < 0) {
+                            rotate += (deg * (preIndex - nextIndex + len) + 3600);
+                        } else {
+                            rotate += (deg * (preIndex - nextIndex) + 3600);
+                        }
+                        // 初始化后， 点击抽奖得到 下次中奖记录
+                        preIndex = nextIndex;
+                        gbWheel.querySelector('.gb-wheel-content').style[transform] = 'rotate(' + rotate + 'deg)';
+                        $('.gb-wheel-btn').css({ 'color': '#333' });
+
+                        // 控制连续点击
+                        isTurn = false;
+                        timer = setTimeout(function() {
+                            isTurn = true;
+                            $('.gb-wheel-btn').css({ 'color': 'white' });
+                            popFrame('恭喜你, 中得' + turnTable[preIndex].text, 1000);
+                            obj = {
+                            	time: footer.getTime(),
+                            	goods: turnTable[preIndex].text
+                            }
+                        	console.log(obj.time, obj.goods);
+                            roulette.me.currentLottery.push(obj)
+                            roulette.me.mainScroll.enable();
+                            clearTimeout(timer);
+                        }, 6000);
                     }
                 } else {
                     if (integral - 50 < 0) {
                         isTurn = false
-                        $('body').remove('.layer').append('<div class="layer">阁下积分不足，快赚取吧</div>');
-                        timer = setTimeout(function() {
-                            $('body .layer').remove();
-                            clearTimeout(timer);
-                        }, 1000)
+                        popFrame('阁下快赚取积分吧...');
                         return;
                     }
-                    $('body').remove('.layer').append('<div class="layer">请稍等，系统为您计算积分</div>');
-                    timer = setTimeout(function() {
-                        $('body .layer').remove();
-                        clearTimeout(timer);
-                    }, 1000);
+                    popFrame('请稍等，系统为您计算积分');
                 }
             })
-
         })
         .catch(function(error) {
             console.log(error);

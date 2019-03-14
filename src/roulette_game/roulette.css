@@ -183,3 +183,16 @@
 	vertical-align: middle;
 	height: 0.8rem;
 }
+.sub_item b {
+    position: absolute;
+    right: 0;
+    width: 0.8rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    border-radius: 50%;
+    background: gold;
+    font-size: 0.266667rem;
+    transform: scale(.8);
+    text-align: center;
+    color: red;
+}   

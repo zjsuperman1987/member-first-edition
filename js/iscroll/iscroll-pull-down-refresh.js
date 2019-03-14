@@ -176,6 +176,7 @@ var refresher = {
         //滚动
         this.spec[parameter.id].on('scroll', function() {
             var y = this.y >> 0;
+            console.log(y)
             // 下拉
             if (y > -pullDownOffset && !pullDownDIV.classList.contains("loading")) {
                 pullDownLableDIV.innerHTML = that.info.pullingDownLable;

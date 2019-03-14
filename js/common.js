@@ -43,9 +43,7 @@ var footer = (function() {
             // 阻止双指放大
             document.addEventListener('gesturestart', function(event) {
                 event.preventDefault();
-            });
-
-
+            }); 
         },
         getRootPath: function() {
             //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp  
@@ -117,6 +115,15 @@ var footer = (function() {
             // 调用ajax 获取编号
             var code = document.createTextNode('99928281');
             document.querySelector('.serial_number').appendChild(code);
+        },
+        getTime: function () { 
+            // 日期
+            var date = new Date(); 
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate(); 
+            var time = year + "-" + month + "-" + day;
+            return time;
         }
     }
 })()
