@@ -19,15 +19,14 @@
 .show_prize {
     position: absolute;
     width: 2.56rem;
-    height: 25px;
     top: 2.293333rem;
     right: 0.933333rem;
     background: #f6e50e;
-    line-height: 25px;
     text-align: center;
     color: #ad300b;
     font-size: 0.32rem;
     font-weight: bold;
+    padding: 0.133333rem 0;
 }
 
 .discribe {

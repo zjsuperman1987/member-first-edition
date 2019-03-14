@@ -59,10 +59,11 @@ var roulette = (function() {
         },
         init_swiper: function() {
             roulette.me.swiper = new Swiper('.swiper-container', {
-                autoplay: true, //可选选项，自动滑动
+                autoplay: {
+                    disableOnInteraction: false 
+                }, 
                 loop: true,
                 spaceBetween: 10,
-                disableOnInteraction: false
             })
         },
         init_tap: function () {

@@ -1,96 +1,162 @@
- (function() {
-// transform: rotate(2120eg)
-        // 奖品配置
-        var awards = [
-                { 'index': 0, 'text': '耳机', 'name': 'icono-headphone' },
-                { 'index': 1, 'text': 'iPhone', 'name': 'icono-iphone' },
-                { 'index': 2, 'text': '相机', 'name': 'icono-camera' },
-                { 'index': 3, 'text': '咖啡杯', 'name': 'icono-cup' },
-                { 'index': 4, 'text': '日历', 'name': 'icono-calendar' },
-                { 'index': 5, 'text': '电脑', 'name': 'icono-keyboard' },
-                { 'index': 6, 'text': '键盘', 'name': 'icono-keyboard' },
-                { 'index': 7, 'text': '音响', 'name': 'icono-keyboard' },
-                { 'index': 8, 'text': '鼠标', 'name': 'icono-keyboard' },
-            ],
-            len = awards.length,
-            turnNum = 1 / len; // 文字旋转 turn 值
+(function() {
+    function preTransform() {
+        var cssPrefix,
+            vendors = {
+                '': '',
+                Webkit: 'webkit',
+                Moz: '',
+                O: 'o',
+                ms: 'ms'
+            },
+            testEl = document.createElement('div');
+        cssSupport = {};
 
-        var gbWheel = $('#gbWheel')[0],
-            lineList = gbWheel.querySelector('ul.gb-wheel-line'),
-            itemList = gbWheel.querySelector('.gb-wheel-list'),
-            lineListHtml = [],
-            itemListHtml = [];
-
-        var transform = preTransform();
-
-        awards.forEach(function(v, i, a) {
-            // 分隔线
-            lineListHtml.push('<li class="gb-wheel-litem" style="' + transform + ': rotate(' + (i * turnNum + turnNum / 2) + 'turn)"></li>');
-
-            // 奖项
-            itemListHtml.push('<div class="gb-wheel-item">');
-            itemListHtml.push('<div class="gb-wheel-icontent" style="' + transform + ': rotate(' + (i * turnNum) + 'turn)">');
-            itemListHtml.push('<p class="gb-wheel-iicon">');
-            itemListHtml.push('<i class="' + v.name + '"></i>');
-            itemListHtml.push('</p>');
-            itemListHtml.push('<p class="gb-wheel-itext">');
-            itemListHtml.push(v.text);
-            itemListHtml.push('</p>');
-            itemListHtml.push('</div>');
-            itemListHtml.push('</div>');
-        });
-
-        lineList.innerHTML = lineListHtml.join('');
-        itemList.innerHTML = itemListHtml.join('');
-
-
-        // 旋转
-        var i = 0;
-        $('#gbLottery').on('tap', function() {
-            i++;
-            console.log(i);
-
-            gbWheel.querySelector('.gb-wheel-content').style[transform] = 'rotate(' + i * 3600 + 'deg)';
-        });
-
-        // console.log(preTransform());
-
-        // transform兼容
-        function preTransform() {
-            var cssPrefix,
-                vendors = {
-                    '': '',
-                    Webkit: 'webkit',
-                    Moz: '',
-                    O: 'o',
-                    ms: 'ms'
-                },
-                testEle = document.createElement('p'),
-                cssSupport = {};
-
-            // 嗅探特性
-            Object.keys(vendors).some(function(vendor) {
-                if (testEle.style[vendor + (vendor ? 'T' : 't') + 'ransform'] !== undefined) {
-                    cssPrefix = vendor ? '-' + vendor.toLowerCase() + '-' : '';
-                    return true;
-                }
-            });
-
-            /**
-             * [兼容CSS前缀]
-             * @param  {[type]} name [description]
-             * @return {[type]}      [description]
-             */
-            function normalizeCss(name) {
-                name = name.toLowerCase();
-                return cssPrefix ? cssPrefix + name : name;
+        // 嗅探特性
+        Object.keys(vendors).some(function(vendor) {
+            if (testEl.style[vendor + (vendor ? 'T' : 't') + 'ranform'] !== undefined) {
+                cssPrefix = vendor ? '-' + vendor.toLowCase() + '-' : '';
+                return true;
             }
-
-            cssSupport = {
-                transform: normalizeCss('Transform'),
-            }
-
-            return cssSupport.transform;
+        });
+        /**
+         *  [兼容css前缀]
+         *  @param {[type]} name [description]
+         *  rotateturn {[type]}  [description]
+         */
+        function normalizeCss(name) {
+            name = name.toLowerCase();
+            return cssPrefix ? cssPrefix + name : name;
         }
 
-    }());
+        cssSupport = {
+            transform: normalizeCss('Transform')
+        }
+
+        return cssSupport.transform;
+    }
+
+
+
+    var gbWheel = document.querySelector('#gbWheel'),
+        lineList = gbWheel.querySelector('ul.gb-wheel-line'),
+        itemList = gbWheel.querySelector('.gb-wheel-list'),
+        lineListHtml = [],
+        itemListHtml = [];
+
+    var transform = preTransform();
+
+
+
+    axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/roulette')
+        .then(function(response) {
+            console.log(response.data.turnTable);
+            var len,
+                awards = [],
+                turnNum
+                turnTable = response.data.turnTable;
+
+            if (!turnTable && turnTable.length === 0) {
+            } else {
+                len = turnTable.length;
+                turnNum = 1 / len;
+                
+                // 取得奖品
+                j = Math.floor(Math.random() * len)
+                lottery = response.data.turnTable[j];
+
+
+                turnTable.forEach(function(v, i, a) {
+                    // 分割线
+                    lineListHtml.push("<li class='gb-wheel-litem' style='" + transform + ": rotate(" + (i * turnNum + turnNum / 2) + "turn)'>" + "</li>");
+
+                    // 奖项
+                    itemListHtml.push("<div class='gb-wheel-item'>");
+                    itemListHtml.push('<div class="gb-wheel-icontent" style="' + transform + ': rotate(' + (i * turnNum) + 'turn)">');
+                    itemListHtml.push('<p class="gb-wheel-iicon">');
+                    itemListHtml.push('<i class="' + v.name + '"></i>');
+                    itemListHtml.push('</p>');
+                    itemListHtml.push('<p class="gb-wheel-itext">');
+                    itemListHtml.push(v.text);
+                    itemListHtml.push('</p>');
+                    itemListHtml.push('</div>');
+                    itemListHtml.push('</div>');
+                });
+
+                lineList.innerHTML = lineListHtml.join('');
+                itemList.innerHTML = itemListHtml.join('');
+            }
+
+            // 旋转
+            var i = 0,
+                isTurn = true;
+
+            $('#gbLottery').on('tap', function() {
+                var integral, num, timer;
+                integral = parseInt($('.integral').text());
+                num = parseInt($('.num').text());
+
+                if (integral && integral - 50 >= 0) {
+                    if (isTurn) {
+                        axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/roulette')
+                            .then(function(response) {
+                                var preIndex = 0,
+                                    nextIndex = 0,
+                                    rotate,
+                                    preLottery;
+
+                                i++;
+                                j = Math.floor(Math.random() * len);
+                                preIndex = response.data.turnTable.indexOf(lottery);
+                                nextIndex = response.data.turnTable
+
+
+                                $('.integral').text(integral - 50);
+                                $('.num').text(parseInt($('.num').text()) - 1);
+                                
+                                
+                                console.log(preIndex)
+                                if (preIndex - nextIndex < 0) {
+                                    rotate = (360 / len) * (preIndex - nextIndex + len) + i * 3600;
+                                } else {
+                                    rotate = i * 3600 + (preIndex - nextIndex) * 360;
+                                }
+                                preIndex = nextIndex;
+                                gbWheel.querySelector('.gb-wheel-content').style[transform] = 'rotate(' + rotate + 'deg)';
+                                
+                                // 控制连续点击
+                                isTurn = false;
+                                $('.gb-wheel-btn').css({ 'color': '#333' });
+                                // 动画结束
+                                timer = setTimeout(function() {
+                                    isTurn = true;
+                                    $('.gb-wheel-btn').css({ 'color': 'white' });
+                                    clearTimeout(timer);
+                                }, 6000);
+                            })
+                            .catch(function(error) {
+                                console.log(error);
+                            })
+                    }
+                } else {
+                    if (integral - 50 < 0) {
+                        isTurn = false
+                        $('body').remove('.layer').append('<div class="layer">阁下积分不足，快赚取吧</div>');
+                        timer = setTimeout(function() {
+                            $('body .layer').remove();
+                            clearTimeout(timer);
+                        }, 1000)
+                        return;
+                    }
+                    $('body').remove('.layer').append('<div class="layer">请稍等，系统为您计算积分</div>');
+                    timer = setTimeout(function() {
+                        $('body .layer').remove();
+                        clearTimeout(timer);
+                    }, 1000);
+                }
+            })
+
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+})()

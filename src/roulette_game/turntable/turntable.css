@@ -15,6 +15,7 @@
 
 .gb-wheel-content {
     position: absolute;
+    z-index: 2;
     left: 0.266667rem;
     top: 0.266667rem;
     width: 7.146667rem;
@@ -68,9 +69,11 @@
     -ms-transform-origin: 50% 3.573333rem;
     transform-origin: 50% 3.573333rem;
 }
+
 .hairlines .gb-wheel-litem {
-	width: .5px;
+    width: .5px;
 }
+
 .gb-wheel-list {
     position: absolute;
     left: 0;
@@ -139,22 +142,45 @@ a.gb-wheel-btn {
     width: 0.8rem;
     height: 0.8rem;
     margin-left: -0.4rem;
-    background-color: #E44025;
+    background-color: inherit;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6), 0 0 5px 4px rgba(0, 0, 0, 0.2) inset
 }
+    
 
 .gb-wheel-btn.disabled,
-.gb-wheel-btn.disabled::after {
+.gb-wheel-btn.disabled::after { 
     pointer-events: none;
     background: #B07A7B;
     color: #ccc
 }
 
+.gb-wheel-iicon [class*=icono-] {
+    color: #e4370e
+}
 
 .gb-wheel-run {
     -webkit-transition: -webkit-transform 6s ease;
     transition: transform 6s ease
+}
+ 
+/*弹层*/
+.layer {
+    position: absolute;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    margin-left: -2.666667rem;
+    margin-top: -1.333333rem;
+    width: 5.333333rem;
+    height: 2.666667rem;
+    background: rgba(0,0,0, .5);
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2.666667rem;
+    font-size: 0.346667rem;
+    color: white;
+    border-radius: 0.266667rem;
 }

@@ -14,7 +14,9 @@ memberHome = (function() {
         initSwiper: function() {
             // 头部轮播
             var headerSwiper = new Swiper('.swiper-container-header', {
-                autoplay: true,
+                autoplay: {
+                    disableOnInteraction: false
+                },
                 loop: true,
                 pagination: {
                     el: '.swiper-pagination'
