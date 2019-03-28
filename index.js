@@ -133,6 +133,7 @@ memberHome = (function() {
                         window.location.href = './src/active/active.html';
                         break;
                     case '品牌':
+                        window.location.href = './src/brand/brand.html';
                         break;
                     case 'wifi':
                         break;
@@ -141,6 +142,7 @@ memberHome = (function() {
                     case '预约':
                         break;
                     case '积分':
+                        window.location.href = './src/integralShopping/integralShopping.html'
                         break;
                     case '抽奖':
                         break;

@@ -1,3 +1,31 @@
+.iScrollVerticalScrollbar {
+    position: absolute;
+    z-index: 9999;
+    width: 7px;
+    bottom: 2px;
+    top: 2px;
+    right: 1px;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateZ(0px);
+    transition-duration: 500ms;
+    opacity: 0;
+}
+
+.iScrollIndicator {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 3px;
+    width: 0.133333rem;
+    transition-duration: 0ms;
+    display: block;
+    transform: translate(0px, 225px) translateZ(0px);
+    height: 100px;
+} 
+
 .pullDown,
 .pullUp {
     height: 40px;
@@ -8,8 +36,9 @@
     color: #888;
 
 }
+
 .loader {
-    display: none;  
+    display: none;
 }
 
 .loader span {

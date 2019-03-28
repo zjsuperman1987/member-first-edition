@@ -648,7 +648,7 @@ IScroll.prototype = {
 
 		// custom_by_jz
 		if (this.options.onRelease) {
-			this.options.onRelease(this);
+			this.options.onRelease.call(this);
 		}
 		// reset if we are outside of the boundaries
 		if ( this.resetPosition(this.options.bounceTime) ) {

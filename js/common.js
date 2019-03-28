@@ -124,6 +124,41 @@ var footer = (function() {
             var day = date.getDate(); 
             var time = year + "-" + month + "-" + day;
             return time;
-        }
+        },
+                 // 等待更新
+         loadingRefresh: function(el) {
+             var span,
+                 wrapper = document.createElement('div'),
+                 loadContainer = document.createElement('div');
+                 loader = document.createElement('div'),
+                 loaderLabel = document.createElement('div');
+
+             for (var i = 0; i <= 4; i++) {
+                 span = document.createElement('span');
+                 loader.appendChild(span);
+             }
+             wrapper.className = 'loading-wrapper';
+             loadContainer.className = 'loading-container';
+             loader.className = 'loader';
+             loaderLabel.innerHTML = 'loading...';
+             loaderLabel.className = 'loaderLabel';
+
+             loadContainer.appendChild(loader);
+             loadContainer.appendChild(loaderLabel);
+             wrapper.appendChild(loadContainer);
+             el.appendChild(wrapper);
+         },
+         closeLoadingRefresh: function () {
+            $('.loading-wrapper').remove();
+         },
+
+         checkOnce: function (originalFunction, performace) {
+            return function () {
+                if (!performace) {
+                    performace = true;
+                    return originalFunction();
+                }
+            }
+         }
     }
 })()

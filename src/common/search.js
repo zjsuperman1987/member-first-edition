@@ -1,101 +1,3 @@
-window.onload = function() {
-    active.init_data();
-}
-
-var active = (function() {
-    return {
-        me: {
-            dataCount: 0
-        },
-        init_data: function(state, callback) {
-
-            axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/active')
-                .then(function(response) {
-                    console.log(response);
-                    var data = response.data.active,
-                        len = data.length,
-                        dataCount = active.me.dataCount,
-                        num = 3;
-                    // 没有数据
-                    if (!data && len === 0) {
-                        refresher.spec['#wrapper'].options.no_more_data = true;
-                        callback();
-                        return;
-                    }
-                    if (state === 'pullDownAction') {
-                        dataCount = active.me.dataCount = 0;
-                        refresher.spec['#wrapper'].options.no_more_data = false;
-                        $('#wrapper li').empty();
-                    }
-                    for (var i = 0; i < num; i++) {
-                        if (dataCount < len) {
-                            $('#wrapper ul li').append(`<dir class='active_wrapper'>
-                                                  <img src=${data[dataCount].imgUrl}>
-                                                  <div class='aw_top'>
-                                                      <span>${data[dataCount].activeTitle}</span>
-                                                      <span>${data[dataCount].activeType}</span>
-                                                  </div>
-                                                  <div class='aw_bottom'>
-                                                      <span>${data[dataCount].startDate}~${data[dataCount].endDate}</span>
-                                                      <span>${data[dataCount].activeState}</span>
-                                                  </div>
-                                              </dir>`);
-                            dataCount++;
-                            active.me.dataCount++;
-                        } else {
-                            refresher.spec['#wrapper'].options.no_more_data = true;
-                        }
-                    }
-
-                    if (state) {
-                        callback();
-                    } else {
-                        active.init_scroller();
-                    }
-                    active.init_tap();
-                })
-                .catch(function(error) {
-                    refresher.spec['#wrapper'].options.net_error = true;
-                    console.log(error);
-                });
-        },
-        init_scroller: function() {
-            refresher.init({
-                id: '#wrapper',
-                pullDownAction: function() {
-                    active.init_data('pullDownAction', refresh);
-                },
-                pullUpAction: function() {
-                    active.init_data('pullUpAction', refresh);
-                }
-            });
-
-            function refresh() {
-                setTimeout(function() {
-                    refresher.spec['#wrapper'].refresh();
-                }, 0);
-            }
-        },
-        init_tap: function() {
-            // 点击搜索栏
-            $('.header').on('touchstart', function(e) {
-                // window.location.href = './activeSearch/activeSearch.html'
-                $('.bottom_page').hide();
-                $('.active_search_page').show();
-                active_search.init_search_page();
-            });
-            //点击活动
-            $('.active_wrapper').off('tap').on('tap', function() {
-                console.log(active.spec.tap, '=================================')
-                if (active.spec.tap) {
-                    alert(999)
-                }
-            });
-        }
-    }
-}());
-
-
 //  ====================================搜索页======================================
 var active_search = (function() {
     return {
@@ -104,11 +6,11 @@ var active_search = (function() {
         dataCount: 0,
         preText: '',
         // 初始化页面
-        init_search_page: function() {
+        init_search_page: function(topic) {
             // 展示历史搜索
-            if (localStorage.getItem('history')) {
+            if (localStorage.getItem(topic)) {
 
-                var json_string = localStorage.getItem('history'),
+                var json_string = localStorage.getItem(topic),
                     array = JSON.parse(json_string);
                 len = array.length;
 
@@ -121,17 +23,16 @@ var active_search = (function() {
             var firstTime = setTimeout(function() {
                 $('.as_middle').css('padding', '0 1.333333rem');
                 clearTimeout(firstTime)
-            }, 0);
+            }, 300);
             var seconde = setTimeout(function() {
                 $('.as_left, .as_right').show();
+                active_search.search_page_click(topic);
                 clearTimeout(seconde)
-            }, 500);
+            }, 600);
             $('.container').show();
-
-            active_search.search_page_click();
         },
         // 点击搜索
-        search_page_click: function() {
+        search_page_click: function(topic) {
             $('.as_right, .history_content span, .hot_search span, input[type=text], .as_left, .history_top_right').off('click').on('click', function(e) {
                 // 返回
                 if (this.className === 'as_left') {
@@ -140,12 +41,12 @@ var active_search = (function() {
                     $('.bottom_page').show();
                     $('.no_search').remove();
                     $('.as_middle').css('padding', '0');
-                    $('input[type=text]').val('');
+                    $('input[type=text]').val('');  
                     $('.as_left, .as_right').hide();
                 }
                 // 移除
                 if (this.className === 'history_top_right') {
-                    localStorage.removeItem('history');
+                    localStorage.removeItem(topic);
                     $('.history_content').empty();
                 }
                 // 搜索框
@@ -164,18 +65,19 @@ var active_search = (function() {
                 if (!$('input[type=text]').val()) return;
 
 
-
+                this.topic = topic;
                 active_search.search($('input[type=text]').val());
             })
         },
         search: function(text, state, callback) {
-            var regexp = new RegExp(text, 'g');
-            var that = this;
+            var that = this,
+                regexp = new RegExp(text, 'g');
+                url = 'https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/' + this.topic;
+           
             this.dataCount = 0;
-            // if(this.preText && this.preText === text && state != 'pullDown') return;
-            // this.preText = text;
-
-            axios.get('https://easy-mock.com/mock/5c77f974ee24c36460daaffb/example/active')
+            
+            if (this.topic === 'history') {
+                axios.get(topic)
                 .then(function(response) {
                     var data = response.data.active;
                     var len = data.length;
@@ -216,9 +118,12 @@ var active_search = (function() {
 
                 })
                 .catch(function(error) {
-                    refresher.spec['#wrapper'].options.net_error = true;
+                    refresher.me['#wrapper'].options.net_error = true;
                     console.log(error);
                 });
+            }else {
+
+            }
         },
 
         update_search_page: function(state, callback) {
@@ -228,7 +133,7 @@ var active_search = (function() {
                 len = data.length;
 
             if (state === 'pullDown') {
-                refresher.spec['#spScrollerWrapper'].options.no_more_data = false;
+                refresher.me['#spScrollerWrapper'].options.noData = false;
                 $('#spScrollerWrapper li').empty();
                 this.dataCount = 0;
                 inserting_scroller();
@@ -236,7 +141,7 @@ var active_search = (function() {
             } else if (state === 'pullUp') {
                 inserting_scroller();
                 if (len === that.dataCount) {
-                    refresher.spec['#spScrollerWrapper'].options.no_more_data = true;
+                    refresher.me['#spScrollerWrapper'].options.noData = true;
                 }
                 callback();
             } else {
@@ -261,11 +166,14 @@ var active_search = (function() {
 
             function inserting_scroller() {
                 $('.no_search').remove();
+
+
                 for (var i = 0; i < 3; i++) {
                     if (that.dataCount < len) {
                         var dataCount;
                         dataCount = that.dataCount++;
-                        $('#spScrollerWrapper li').append(`<dir class='active_wrapper'>
+                        if (that.topic === 'history') {
+                            $('#spScrollerWrapper li').append(`<dir class='active_wrapper'>
                                                   <img src=${data[dataCount].imgUrl}>
                                                   <div class='aw_top'>
                                                       <span>${data[dataCount].activeTitle}</span>
@@ -276,6 +184,19 @@ var active_search = (function() {
                                                       <span>${data[dataCount].activeState}</span>
                                                   </div>
                                               </dir>`);
+                        }else if(that.topic === 'brand') {
+                            $('#spScrollerWrapper li').append(`<dir class='active_wrapper'>
+                                                  <img src=${data[dataCount].imgUrl}>
+                                                  <div class='aw_top'>
+                                                      <span>${data[dataCount].activeTitle}</span>
+                                                      <span>${data[dataCount].activeType}</span>
+                                                  </div>
+                                                  <div class='aw_bottom'>
+                                                      <span>${data[dataCount].startDate}~${data[dataCount].endDate}</span>
+                                                      <span>${data[dataCount].activeState}</span>
+                                                  </div>
+                                              </dir>`);
+                        }
                     }
                 }
             }
@@ -294,25 +215,25 @@ var active_search = (function() {
             });
             function refresh () {
                 setTimeout(function () {
-                    refresher.spec['#spScrollerWrapper'].refresh();
+                    refresher.me['#spScrollerWrapper'].refresh();
                 },0)
             }
 
         },
         history_record: function() {
-            if (!localStorage.getItem('history')) {
+            if (!localStorage.getItem(this.topic)) {
                 var array = [];
                 array.push($('input[type=text]').val());
                 var json = JSON.stringify(array);
-                localStorage.setItem('history', json);
+                localStorage.setItem(this.topic, json);
             } else {
-                var json_string = localStorage.getItem('history'),
+                var json_string = localStorage.getItem(this.topic),
                     array = JSON.parse(json_string);
                 text = $('input[type=text]').val();
                 if (array.indexOf(text) != -1) return;
                 if (array.length === 10) array.pop();
                 array.unshift(text);
-                localStorage.setItem('history', JSON.stringify(array));
+                localStorage.setItem(topic, JSON.stringify(array));
             }
         }
     }
