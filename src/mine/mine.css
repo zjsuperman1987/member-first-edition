@@ -91,3 +91,23 @@ body {
     margin-top: 0.266667rem;
     display: block;
 }
+
+/*签到*/
+.sign {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.4rem;
+    right: 0.266667rem;
+    height: 0.8rem;
+    border-radius: 0.4rem;
+    padding: 0 0.533333rem;
+    background: white;
+    text-align: center;
+    line-height: 0.8rem;
+}
+.sign span {
+    font-size: 0.32rem;
+    color: black;
+}
+
+

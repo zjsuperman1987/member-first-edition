@@ -31,7 +31,14 @@ var mine = (function() {
                     default:
                     	break;
                 }
+            });
+
+            // 每日签到
+            $('.sign').on('touchend', function () {
+                location.href = './sign/sign.html'
             })
+
+
         }
     }
 })()
