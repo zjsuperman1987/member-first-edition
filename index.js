@@ -145,6 +145,7 @@ memberHome = (function() {
                         window.location.href = './src/integralShopping/integralShopping.html'
                         break;
                     case '抽奖':
+                        window.location.href = './src/lottery/lottery.html'
                         break;
                     case '游戏':
                         window.location.href = './src/roulette_game/roulette.html';

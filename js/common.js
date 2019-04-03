@@ -12,7 +12,7 @@ var footer = (function() {
                         break;
                     case '扫码':
                         that.generator_scan();
-                        $('.scane-delete-icon').on('click', function(){
+                        $('.scane-delete-icon').on('click', function() {
                             $('.scane-wrapper').remove();
                         })
                         break;
@@ -25,7 +25,7 @@ var footer = (function() {
                 }
             })
 
-         // 阻止双击放大
+            // 阻止双击放大
             var lastTouchEnd = 0;
             document.addEventListener('touchstart', function(event) {
                 if (event.touches.length > 1) {
@@ -43,7 +43,7 @@ var footer = (function() {
             // 阻止双指放大
             document.addEventListener('gesturestart', function(event) {
                 event.preventDefault();
-            }); 
+            });
         },
         getRootPath: function() {
             //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp  
@@ -116,49 +116,98 @@ var footer = (function() {
             var code = document.createTextNode('99928281');
             document.querySelector('.serial_number').appendChild(code);
         },
-        getTime: function () { 
+        getTime: function() {
             // 日期
-            var date = new Date(); 
+            var date = new Date();
             var year = date.getFullYear();
             var month = date.getMonth() + 1;
-            var day = date.getDate(); 
+            var day = date.getDate();
             var time = year + "-" + month + "-" + day;
             return time;
         },
-                 // 等待更新
-         loadingRefresh: function(el) {
-             var span,
-                 wrapper = document.createElement('div'),
-                 loadContainer = document.createElement('div');
-                 loader = document.createElement('div'),
-                 loaderLabel = document.createElement('div');
+        // 等待更新
+        loadingRefresh: function(el) {
+            var span,
+                wrapper = document.createElement('div'),
+                loadContainer = document.createElement('div');
+            loader = document.createElement('div'),
+                loaderLabel = document.createElement('div');
 
-             for (var i = 0; i <= 4; i++) {
-                 span = document.createElement('span');
-                 loader.appendChild(span);
-             }
-             wrapper.className = 'loading-wrapper';
-             loadContainer.className = 'loading-container';
-             loader.className = 'loader';
-             loaderLabel.innerHTML = 'loading...';
-             loaderLabel.className = 'loaderLabel';
+            for (var i = 0; i <= 4; i++) {
+                span = document.createElement('span');
+                loader.appendChild(span);
+            }
+            wrapper.className = 'loading-wrapper';
+            loadContainer.className = 'loading-container';
+            loader.className = 'loader';
+            loaderLabel.innerHTML = 'loading...';
+            loaderLabel.className = 'loaderLabel';
 
-             loadContainer.appendChild(loader);
-             loadContainer.appendChild(loaderLabel);
-             wrapper.appendChild(loadContainer);
-             el.appendChild(wrapper);
-         },
-         closeLoadingRefresh: function () {
+            loadContainer.appendChild(loader);
+            loadContainer.appendChild(loaderLabel);
+            wrapper.appendChild(loadContainer);
+            el.appendChild(wrapper);
+        },
+        closeLoadingRefresh: function() {
             $('.loading-wrapper').remove();
-         },
+        },
 
-         checkOnce: function (originalFunction, performace) {
-            return function () {
+        checkOnce: function(originalFunction, performace) {
+            return function() {
                 if (!performace) {
                     performace = true;
                     return originalFunction();
                 }
             }
-         }
+        },
+        // 参数fmt必须
+        // date参数不必须，允许字符串和时间对象，不传或者传无法转换成合法时间对象的字符串则默认当前时间,
+        // 年(YYYY/yyyy)固定四个占位符
+        // 月(M)、日(d)、小时(h)、分(m)、秒(s)可以用 1-2个占位符,严格区分大小写，
+        // 毫秒（ms/mss）最多三个占位符，分别对应56，056这种类型
+        // 例子：
+        // (Format("yyyy-MM-dd hh:mm:ss:ms") ==> 2006-07-02 08:09:04:23
+        // (Format("yyyy-MM-dd hh:mm:ss:mss") ==> 2006-07-02 08:09:04:023
+        // (Format("yyyy-M-d h:m:s:ms")      ==> 2006-7-2 8:9:4.180
+        formate: function(fmt, date) {
+            _date = new Date(date).toString() === 'Invalid Date' ? new Date() : new Date(date);
+            var _rules = [{
+                rule: '[yY]{4}',
+                value: _date.getFullYear()
+            }, {
+                rule: 'M+',
+                value: _date.getMonth() + 1
+            }, {
+                rule: '[dD]+',
+                value: _date.getDate()
+            }, {
+                rule: 'h+',
+                value: _date.getHours()
+            }, {
+                rule: 'm+',
+                value: _date.getMinutes()
+            }, {
+                rule: 's+',
+                value: _date.getSeconds()
+            }, {
+                rule: 'ms{1,2}',
+                value: _date.getMilliseconds()
+            }];
+
+            _rules.forEach(function(_r) {
+                const rule = _r.rule,
+                    val = _r.value;
+                fmt = fmt.replace(new RegExp(rule), function($1) {
+                    const rLen = val.toString().length,
+                        fLen = $1.length;
+                    return (fLen !== 2 || rLen >= fLen) ? val : ['00', val].join('').substr(rLen);
+                });
+            });
+            return fmt;
+        }
+        // //调用：
+        // var time1 = formate("YYYY/MM/DD hh:mm:ss", new Date()); //2017/11/2 11:09:20
+        // var time2 = formate("YYYY-MM-DD", time1); //2017-11-2
+        // var time3 = formate("MM-DD-YYYY", time2); //11-2-2017
     }
 })()

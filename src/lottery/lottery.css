@@ -1,0 +1,109 @@
+.wrapper {
+    height: 14.773333rem;
+}
+.header {
+    width: 100%;
+    height: 5.333333rem;
+}
+.header img {
+    width: 100%;
+    height: 100%;
+}
+.container {
+    width: 100%;
+    padding: 0.266667rem;
+    overflow: hidden;
+    background: url('../../images/lottery_background.png') no-repeat;
+    background-size: 100% 100%;
+    min-height: 8.0rem;
+}
+.explain {
+    margin-left: 30%;
+    padding-left: 0.266667rem;
+    border-left: 1px dashed #efefef;
+    overflow: hidden;
+    font-size: 0.32rem;
+    color: #F2F219;
+    margin-bottom: 0.266667rem;
+}
+.active-explain p, .lottery-explain p {
+    margin-bottom: 0.133333rem;
+}
+.lottery-explain p:last-child {
+    margin-bottom: 0;
+}
+
+.gift-img {
+    width: 100%;
+    padding: 0.266667rem;
+    overflow: hidden;
+}
+.gift-img .img-item {
+    float: left;
+    width: 33.333%;
+    height: 2.666667rem;
+    background: url('../../images/图片框.png') no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.32rem;
+    line-height: 2
+}
+
+.img-item img {
+    width: 1.6rem;
+    height: 1.333333rem;
+    margin-top: 0.266667rem
+}
+
+.draw-the-winning-number-of-a-lottery {
+    width: 100%;
+    padding: 0.533333rem;
+    text-align: center;
+    font-size: 0.373333rem;
+    color: #F2F219;
+}
+
+.openDate{
+    width: 100%;
+    padding: 0.266667rem 0.533333rem;
+    overflow: hidden;
+}
+
+.openDate > div{
+    float: left;
+    width: 25%;
+    height: 1.733333rem;
+    font-size: 0;
+    letter-spacing: -3px;
+    text-align: center;
+    line-height: 1.733333rem;
+    color: white;
+}
+.day-block, .hours-block, .minutes-block, .seconds-block {
+    display: inline-block;
+    width: 1.466667rem;
+    height: 100%;
+    background: url('../../images/数字显示.png');
+    background-size: 100% 100%;
+    vertical-align: bottom;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+}
+.openDate span {
+    display: inline-block;
+    font-size: 0.373333rem;
+    letter-spacing: 0;
+    color: #F2F219;
+    margin-bottom: 0.133333rem;
+    margin-left: 0.133333rem;
+}
+.winning-man {
+    margin: 0.533333rem auto;
+    text-align: center;
+    border: 1px dashed #ffffff;
+    font-size: 0.373333rem;
+    color: #F2F219;
+    width: 60%;
+    padding: 0.266667rem;
+}
